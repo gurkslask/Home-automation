@@ -11,37 +11,45 @@ class Kompensering:
         self.IterValue = 0
 
     def SetVarden(self, GraderUte, GraderFram):
+        """SetVarden takes two values, the temperature outside,
+        and the setpoint temperature for the shunt and puts them in a dict"""
+
         if isinstance(GraderUte, (int, float, complex)) and isinstance(GraderFram, (int, float, complex)):
             self.DictVarden[GraderUte] = GraderFram
         else:
-            print('Fel vÃ¤rde')
+            print('Wrong value!')
 
     def SetMin(self, Min):
+        """Set max temperature out from shunt"""
         self.Min = Min
 
     def SetMax(self, Max):
+        """Set min temperature out from shunt"""
         self.Max = Max
 
     def MinMax(self, Value):
+        """MinMax returns a value between the set min and max values"""
         return max(self.Min, min(self.Max, Value))
     
     def CountSP(self, PV):
-        self.SortedList = sorted(self.DictVarden.keys())#Sortera värden
-        for i in sorted(self.DictVarden.keys()):#Loopa igenom alla utetemp-värden
-            if i > PV:#Hitta ett värde som är större än nuvarande utetemp
-                self.UpperValueKomp = i#sätt det värdet
-                self.LowValueKomp = self.SortedList[self.IterValue-1]#och ta värdet under det
-                break#avbryt loopen4
+        """Calculate the actual setpoint based on the provided values and the
+        actual outsidetemperature"""
+        self.SortedList = sorted(self.DictVarden.keys())    #Sort values
+        for i in sorted(self.DictVarden.keys()):            #Loop through outtemperature
+            if i > PV:  #Find nearest upper value
+                self.UpperValueKomp = i 
+                self.LowValueKomp = self.SortedList[self.IterValue-1]#take neares value under
+                break#finish
             self.IterValue += 1
             if self.IterValue == len(self.DictVarden):
                 return self.MinMax(self.DictVarden[self.SortedList[-1]])
         if self.UpperValueKomp == self.LowValueKomp:
-            return self.MinMax(self.DictVarden[self.UpperValueKomp])#Om dessa är lika anta att nedre skalan nåddes
-        self.y2 = self.DictVarden[self.UpperValueKomp]#sätt lite variabler
+            return self.MinMax(self.DictVarden[self.UpperValueKomp])#if they are equal, assume the bottom was reached
+        self.y2 = self.DictVarden[self.UpperValueKomp]
         self.y1 = self.DictVarden[self.LowValueKomp]
         self.x2 = self.UpperValueKomp
         self.x1 = self.LowValueKomp
-        self.k =  (self.y2 - self.y1) / (self.x2 - self.x1)#utför räta linjens ekvation
+        self.k =  (self.y2 - self.y1) / (self.x2 - self.x1)#straight line equation
         self.m =  self.y1 - (self.x1 * self.k)
         self.SP = (PV * self.k) + self.m
         return self.MinMax(self.SP), self.x2, self.x1
