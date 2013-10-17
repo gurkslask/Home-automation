@@ -21,5 +21,6 @@ while True:
 		stringen = str(now.day) + str(now.month) + '-' + str(now.minute) + tempdata
 		Write_temp( stringen)
 		timestamp_minute = time.time()
+	time.sleep(20)
 
 
