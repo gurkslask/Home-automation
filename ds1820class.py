@@ -7,6 +7,7 @@ class DS1820(adress):
 		'''Some initialization		'''
 		self.adress = adress
 		self.temp = 0.0
+		self.interval = 0.0
 
 	def ReadTemp(self):
 		'''Read the file that stores temperature data, use the folder
@@ -19,11 +20,16 @@ class DS1820(adress):
             self.temp = data
             return data
 
-    def Write_temp(self, interval):
+    def Set_Write_Interval(self, interval):
+    	self.interval = interval
+    	return self.interval
+
+    def Write_temp(self):
     	'''interval in seconds, dont update until interval is reached
     	Dont really know how the time stamp should work'''
+    	assert self.interval != 0.0, 'Interval not set!'
     	timestamp = time.time()
-    	if time.time() - interval > timestamp:
+    	if time.time() - self.interval > timestamp:
     		now = datetime.datetime.now()
     		if self.data_string == self.temp:*'''If temp is same as before, just insert a _'''
     			self.data_string = '_'
