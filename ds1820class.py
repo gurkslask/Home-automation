@@ -35,5 +35,5 @@ class DS1820():
 				self.data_string = '_'
 			else:
 				self.data_string = self.temp
-			with open('sensors/' + now.year + now.month + '/' + self.adress + '_' + now.day, 'a') as outfile:
+			with open('/sensors/' + now.year + now.month + '/' + self.adress + '_' + now.day, 'a') as outfile:
 			        outfile.write(self.data_string)
