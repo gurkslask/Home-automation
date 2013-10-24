@@ -58,6 +58,8 @@ class DS1820():
 
 		self.Write_temp()
 
+		return self.temp
+
 
 
 	def Write_temp(self):
