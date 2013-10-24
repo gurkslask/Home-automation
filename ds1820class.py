@@ -9,6 +9,36 @@ class DS1820():
 		self.temp = 0.0
 		self.interval = 0.0
 
+	def SetWriteInterval(self, interval):
+		self.interval = interval
+		return self.interval
+
+	def SetHighThreshold(self, HighThreshold):
+		self.HighAlarmActivated = True
+		self.HighAlarmTreshold = HighThreshold
+		return self.HighAlarmTreshold
+
+	def SetLowThreshold(self, LowThreshold):
+		self.LowAlarmActivated = True
+		self.LowAlarmTreshold = LowThreshold
+		return self.LowAlarmTreshold
+
+	def CheckTemperatureAlarm(self):
+		'''Checks whether any alarm are activated, if they are
+		Check if they are higher/lower than the threshold, if they are
+		set the alarm'''
+		if self.LowAlarmActivated:
+			if self.temp < self.LowAlarmTreshold:
+				self.LowAlarm = True
+		else:
+			self.LowAlarm = False
+
+		if self.HighAlarmActivated:
+			if self.temp > self.HighAlarmTreshold:
+				self.HighAlarm = True
+		else:
+			self.HighAlarm = False		
+
 	def ReadTemp(self):
 		'''Read the file that stores temperature data, use the folder
 		with the provided adress. Dont forget to run modprobe on the pi'''
@@ -20,9 +50,15 @@ class DS1820():
 			self.temp = data
 			return data
 
-	def Set_Write_Interval(self, interval):
-		self.interval = interval
-		return self.interval
+	def RunMainTemp(self):
+		'''This is where the magic happens'''
+		self.ReadTemp()
+
+		self.CheckTemperatureAlarm()
+
+		self.Write_temp()
+
+
 
 	def Write_temp(self):
 		'''interval in seconds, dont update until interval is reached
