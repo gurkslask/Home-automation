@@ -10,6 +10,7 @@ class DS1820():
 		self.interval = 0.0
 		self.HighAlarmActivated = False
 		self.LowAlarmActivated = False
+		self.timestamp
 
 	def SetWriteInterval(self, interval):
 		self.interval = interval
@@ -68,8 +69,8 @@ class DS1820():
 		'''interval in seconds, dont update until interval is reached
 		Dont really know how the time stamp should work'''
 		assert self.interval != 0.0, 'Interval not set!'
-		timestamp = time.time()
 		if time.time() - self.interval > timestamp:
+			self.timestamp = time.time()
 			now = datetime.datetime.now()
 			if self.data_string == self.temp: 
 				self.data_string = '_'
