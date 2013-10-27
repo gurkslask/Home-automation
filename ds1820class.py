@@ -10,7 +10,7 @@ class DS1820():
 		self.interval = 0.0
 		self.HighAlarmActivated = False
 		self.LowAlarmActivated = False
-		self.timestamp
+		self.timestamp = 0
 
 	def SetWriteInterval(self, interval):
 		self.interval = interval
