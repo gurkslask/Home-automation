@@ -69,7 +69,7 @@ class DS1820():
 		'''interval in seconds, dont update until interval is reached
 		Dont really know how the time stamp should work'''
 		assert self.interval != 0.0, 'Interval not set!'
-		if time.time() - self.interval > timestamp:
+		if time.time() - self.interval > self.timestamp:
 			self.timestamp = time.time()
 			now = datetime.datetime.now()
 			if self.data_string == self.temp: 
