@@ -73,6 +73,6 @@ class DS1820():
 				self.data_string = '_'
 			else:
 				self.data_string = self.temp
-			print('/sensors/' + str(now.year) + str(now.month + '/' + self.adress + '_' + str(now.day)
-			with open('/sensors/' + str(now.year) + str(now.month + '/' + self.adress + '_' + str(now.day), 'a') as outfile:
+			print('/sensors/' + str(now.year) + str(now.month) + '/' + self.adress + '_' + str(now.day))
+			with open('/sensors/' + str(now.year) + str(now.month) + '/' + self.adress + '_' + str(now.day), 'a') as outfile:
 			        outfile.write(self.data_string)
