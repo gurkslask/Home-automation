@@ -11,6 +11,7 @@ class DS1820():
 		self.HighAlarmActivated = False
 		self.LowAlarmActivated = False
 		self.timestamp = 0
+		self.data_string = ''
 
 	def SetWriteInterval(self, interval):
 		self.interval = interval
