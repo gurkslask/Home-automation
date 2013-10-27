@@ -8,6 +8,8 @@ class DS1820():
 		self.adress = adress
 		self.temp = 0.0
 		self.interval = 0.0
+		self.HighAlarmActivated = False
+		self.LowAlarmActivated = False
 
 	def SetWriteInterval(self, interval):
 		self.interval = interval
