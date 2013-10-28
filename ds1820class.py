@@ -1,5 +1,6 @@
 import datetime
 import time
+import os
 class DS1820():
 	'''Class for woking with a DS1820 temperature sensor
 	'''
@@ -77,6 +78,8 @@ class DS1820():
 				self.data_string = '_'
 			else:
 				self.data_string = self.temp
-			print('sensors/' + self.adress + '/' + str(now.year) + str(now.month) + str(now.day))
-			with open('sensors/' + self.adress + '/' + str(now.year) + str(now.month) + str(now.day), 'a+') as outfile:
-			        outfile.write(self.data_string)
+			path = 'sensors/' + self.adress + '/'
+			if not os.path.exists(path):
+				os.makedirs(path)
+			with open(path + str(now.year) + str(now.month) + str(now.day), 'a+') as outfile:
+			        outfile.write(str(self.data_string) + '\n')
