@@ -60,3 +60,11 @@ while True:
 # close the client
 #---------------------------------------------------------------------------#
 client.close()
+
+class ModbusDigitalInput(object):
+    """docstring for ModbusDigitalInput"""
+    def __init__(self, arg):
+        self.IOcard = 0
+        self.IOadress = 0
+        self.IOValue = 0
+    def ReadStatus(self):
