@@ -61,6 +61,12 @@ while True:
 #---------------------------------------------------------------------------#
 client.close()
 
+
+IOcardDict = {}
+
+def InitModbusCards():
+    
+
 class ModbusDigitalInput(object):
     """docstring for ModbusDigitalInput"""
     def __init__(self, arg):
