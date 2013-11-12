@@ -33,18 +33,9 @@ print rr.registers
 rr = client.read_input_registers(0000,1)
 print rr
 #assert(rr.registers == [10]*8)
-rr = client.read_input_registers(8001,1)
-print rr
-rr = client.read_input_registers(8002,1)
-print rr
-rr = client.read_input_registers(8009,1)
-print rr
+
 '''
 '''
-rr = client.read_input_registers(8000,1)
-print rr.registers
-rr = client.read_input_registers(8001,1)
-print rr.registers
 rr = client.read_holding_registers(8001, 1)
 print rr.registers
 
@@ -73,12 +64,29 @@ client.close()
 
 def InitModbusCards():
     
-
-class ModbusDigitalInput(object):
+'''
+class ModbusDigitalIOCard():
     """docstring for ModbusDigitalInput"""
     def __init__(self, arg):
         self.IOcard = 0
         self.IOadress = 0
         self.IOValue = 0
+        self.IOVariables = {}
+
     def ReadStatus(self):
-'''
+        self.Value = client.read_input_registers(self.IOadress, 1)
+        self.DecToBin(self.Value)
+
+    def DecToBin(DecVal, self):
+        BinVal = bin(DecVal)
+        for i in range(len(BinVal) - 2):
+           print(BinVal[len(BinVal)-1-i])
+           self.IOVariables[i] = BinVal[len(BinVal)-1-i]
+        #print(bit)
+
+    def SetAddress(Address):
+        self.IOadress = Address
+
+
+
+
