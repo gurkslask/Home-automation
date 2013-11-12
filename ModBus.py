@@ -18,16 +18,9 @@ log.setLevel(logging.DEBUG)
 # directory, or start a pymodbus server.
 #---------------------------------------------------------------------------#
 client = ModbusTcpClient('192.168.1.9')
+rq = client.write_registers(2048, [0])
 rr = client.read_input_registers(000, 1)
 print rr.registers
-'''def HexToOut(HexVal):
-    BinVal = bin(int(HexVal,16))
-    bit = []
-    for i in range(len(BinVal) - 2):
-        print(BinVal[len(BinVal)-1-i])
-        bit[i] = BinVal[len(BinVal)-1-i]
-    print(bit)
-    '''
 '''
 #rq = client.write_registers(8009, [2]*4)
 rr = client.read_input_registers(0000,1)
@@ -64,7 +57,7 @@ client.close()
 
 def InitModbusCards():
     
-'''
+
 class ModbusDigitalIOCard():
     """docstring for ModbusDigitalInput"""
     def __init__(self, arg):
@@ -86,7 +79,7 @@ class ModbusDigitalIOCard():
 
     def SetAddress(Address):
         self.IOadress = Address
-
+'''
 
 
 
