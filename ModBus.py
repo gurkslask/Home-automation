@@ -1,5 +1,6 @@
 from pymodbus.client.sync import ModbusTcpClient
 import time, os
+from ModbusDigitalIOCardClass import ModbusDigitalIOCard
 
 
 #---------------------------------------------------------------------------#
@@ -14,7 +15,7 @@ log.setLevel(logging.DEBUG)
 #---------------------------------------------------------------------------#
 # configure io card
 #---------------------------------------------------------------------------#
-Digital_In_1 = ModbusDigitalIOCard()
+Digital_In_1 = ModbusDigitalIOCard(1)
 Digital_In_1.SetAddress(1)
 #---------------------------------------------------------------------------#
 # choose the client you want
@@ -86,33 +87,7 @@ client.close()
 def InitModbusCards():
     
 '''
-class ModbusDigitalIOCard():
-    """docstring for ModbusDigitalInput"""
-    def __init__(self, arg):
-        self.IOcard = 0
-        self.IOadress = 0
-        self.IOValue = 0
-        self.IOVariables = {}
 
-    def ReadStatus(self):
-        self.Value = client.read_input_registers(self.IOadress, 1)
-        self.DecToBin(self.Value.registers)
-
-    def DecToBin(DecVal, self):
-        '''
-        Here you gotta do data assignments as follows:
-        my_digitalin_variable_1 = ModbusDigitalIOCard__CLASS.IOVariables[0]
-        my_digitalin_variable_2 = ModbusDigitalIOCard__CLASS.IOVariables[1]
-
-        '''
-        BinVal = bin(DecVal)
-        for i in range(len(BinVal) - 2):
-           bitVal = BinVal[len(BinVal)-1-i]
-           if self.IOVariables[i]:
-              self.IOVariables[i] = bitVal
-
-    def SetAddress(Address):
-        self.IOadress = Address
 
 
 
