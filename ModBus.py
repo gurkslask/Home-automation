@@ -10,6 +10,12 @@ logging.basicConfig()
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
+
+#---------------------------------------------------------------------------#
+# configure io card
+#---------------------------------------------------------------------------#
+Digital_In_1 = ModbusDigitalIOCard():
+Digital_In_1.SetAddress(1)
 #---------------------------------------------------------------------------#
 # choose the client you want
 #---------------------------------------------------------------------------#
@@ -21,6 +27,28 @@ client = ModbusTcpClient('192.168.1.9')
 rq = client.write_registers(2048, [0])
 rr = client.read_input_registers(000, 1)
 print rr.registers
+
+
+
+#---------------------------------------------------------------------------#
+# Run io card
+#---------------------------------------------------------------------------#
+Digital_In_1.ReadStatus()
+
+
+#---------------------------------------------------------------------------#
+# configure io card variables
+#---------------------------------------------------------------------------#
+
+Test_Variabel = Digital_In_1.IOVariables[14]
+
+
+
+
+
+
+
+
 '''
 #rq = client.write_registers(8009, [2]*4)
 rr = client.read_input_registers(0000,1)
@@ -57,7 +85,7 @@ client.close()
 
 def InitModbusCards():
     
-
+'''
 class ModbusDigitalIOCard():
     """docstring for ModbusDigitalInput"""
     def __init__(self, arg):
@@ -68,18 +96,26 @@ class ModbusDigitalIOCard():
 
     def ReadStatus(self):
         self.Value = client.read_input_registers(self.IOadress, 1)
-        self.DecToBin(self.Value)
+        self.DecToBin(self.Value.registers)
 
     def DecToBin(DecVal, self):
+        '''
+        Here you gotta do data assignments as follows:
+        my_digitalin_variable_1 = ModbusDigitalIOCard__CLASS.IOVariables[0]
+        my_digitalin_variable_2 = ModbusDigitalIOCard__CLASS.IOVariables[1]
+
+        '''
         BinVal = bin(DecVal)
         for i in range(len(BinVal) - 2):
-           print(BinVal[len(BinVal)-1-i])
-           self.IOVariables[i] = BinVal[len(BinVal)-1-i]
-        #print(bit)
+           bitVal = BinVal[len(BinVal)-1-i]
+           if self.IOVariables[i]:
+              self.IOVariables[i] = bitVal
 
     def SetAddress(Address):
         self.IOadress = Address
-'''
+
+
+
 
 
 
