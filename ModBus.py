@@ -14,7 +14,7 @@ log.setLevel(logging.DEBUG)
 #---------------------------------------------------------------------------#
 # configure io card
 #---------------------------------------------------------------------------#
-Digital_In_1 = ModbusDigitalIOCard():
+Digital_In_1 = ModbusDigitalIOCard()
 Digital_In_1.SetAddress(1)
 #---------------------------------------------------------------------------#
 # choose the client you want
