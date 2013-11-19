@@ -1,7 +1,7 @@
 from pymodbus.client.sync import ModbusTcpClient
 import time, os
-from ModbusDigitalIOCardClass import ModbusDigitalIOCard
-
+from ModbusDigitalInputIOCardClass import ModbusDigitalInputIOCard
+from ModbusDigitalOutputIOCardClass import ModbusDigitalOutputIOCard
 
 #---------------------------------------------------------------------------#
 # configure the client logging
@@ -15,8 +15,9 @@ log.setLevel(logging.DEBUG)
 #---------------------------------------------------------------------------#
 # configure io card
 #---------------------------------------------------------------------------#
-Digital_In_1 = ModbusDigitalIOCard(1)
-Digital_In_1.SetAddress(1)
+Digital_In_1 = ModbusDigitalInputIOCard(1)
+
+Digital_Out_1 = ModbusDigitalOutputIOCard(2)
 #---------------------------------------------------------------------------#
 # choose the client you want
 #---------------------------------------------------------------------------#
@@ -27,14 +28,56 @@ Digital_In_1.SetAddress(1)
 client = ModbusTcpClient('192.168.1.9')
 rq = client.write_registers(2048, [0])
 rr = client.read_input_registers(000, 1)
-print rr.registers
+print (rr.registers)
 
 
-
+#---------------------------------------------------------------------------#
+# Define io card Variables
+#---------------------------------------------------------------------------#
+Digital_In_1_Variable0 = Digital_In_1.IOVariables[0]
+Digital_In_1_Variable1 = Digital_In_1.IOVariables[1]
+Digital_In_1_Variable2 = Digital_In_1.IOVariables[2]
+Digital_In_1_Variable3 = Digital_In_1.IOVariables[3]
+Digital_In_1_Variable4 = Digital_In_1.IOVariables[4]
+Digital_In_1_Variable5 = Digital_In_1.IOVariables[5]
+Digital_In_1_Variable6 = Digital_In_1.IOVariables[6]
+Digital_In_1_Variable7 = Digital_In_1.IOVariables[7]
+Digital_In_1_Variable8 = Digital_In_1.IOVariables[8]
+Digital_In_1_Variable9 = Digital_In_1.IOVariables[9]
+Digital_In_1_Variable10 = Digital_In_1.IOVariables[10]
+Digital_In_1_Variable11 = Digital_In_1.IOVariables[11]
+Digital_In_1_Variable12 = Digital_In_1.IOVariables[12]
+Digital_In_1_Variable13 = Digital_In_1.IOVariables[13]
+Digital_In_1_Variable14 = Digital_In_1.IOVariables[14]
+Digital_In_1_Variable15 = Digital_In_1.IOVariables[15]
 #---------------------------------------------------------------------------#
 # Run io card
 #---------------------------------------------------------------------------#
 Digital_In_1.ReadStatus()
+
+#---------------------------------------------------------------------------#
+# Define io card Variables
+#---------------------------------------------------------------------------#
+Digital_Out_1_Variable0 = Digital_Out_1.IOVariables[0]
+Digital_Out_1_Variable1 = Digital_Out_1.IOVariables[1]
+Digital_Out_1_Variable2 = Digital_Out_1.IOVariables[2]
+Digital_Out_1_Variable3 = Digital_Out_1.IOVariables[3]
+Digital_Out_1_Variable4 = Digital_Out_1.IOVariables[4]
+Digital_Out_1_Variable5 = Digital_Out_1.IOVariables[5]
+Digital_Out_1_Variable6 = Digital_Out_1.IOVariables[6]
+Digital_Out_1_Variable7 = Digital_Out_1.IOVariables[7]
+Digital_Out_1_Variable8 = Digital_Out_1.IOVariables[8]
+Digital_Out_1_Variable9 = Digital_Out_1.IOVariables[9]
+Digital_Out_1_Variable10 = Digital_Out_1.IOVariables[10]
+Digital_Out_1_Variable11 = Digital_Out_1.IOVariables[11]
+Digital_Out_1_Variable12 = Digital_Out_1.IOVariables[12]
+Digital_Out_1_Variable13 = Digital_Out_1.IOVariables[13]
+Digital_Out_1_Variable14 = Digital_Out_1.IOVariables[14]
+Digital_Out_1_Variable15 = Digital_Out_1.IOVariables[15]
+#---------------------------------------------------------------------------#
+# Run io card
+#---------------------------------------------------------------------------#
+Digital_Out_1.WriteStatus()
 
 
 #---------------------------------------------------------------------------#
