@@ -53,7 +53,7 @@ Digital_In_1_Variable15 = Digital_In_1.IOVariables[15]
 #---------------------------------------------------------------------------#
 # Run io card
 #---------------------------------------------------------------------------#
-Digital_In_1.ReadStatus()
+#Digital_In_1.ReadStatus()
 
 #---------------------------------------------------------------------------#
 # Define io card Variables
@@ -77,14 +77,14 @@ Digital_Out_1_Variable15 = Digital_Out_1.IOVariables[15]
 #---------------------------------------------------------------------------#
 # Run io card
 #---------------------------------------------------------------------------#
-Digital_Out_1.WriteStatus()
+#Digital_Out_1.WriteStatus()
 
 
 #---------------------------------------------------------------------------#
 # configure io card variables
 #---------------------------------------------------------------------------#
 
-Test_Variabel = Digital_In_1.IOVariables[14]
+#Test_Variabel = Digital_In_1.IOVariables[14]
 
 
 
