@@ -61,7 +61,7 @@ class DS1820():
 
 		self.CheckTemperatureAlarm()
 
-		self.Write_temp()
+		self.Write_temp2()
 
 		return self.temp
 
