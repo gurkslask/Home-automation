@@ -83,3 +83,21 @@ class DS1820():
 				os.makedirs(path)
 			with open(path + str(now.year) + str(now.month) + str(now.day), 'a+') as outfile:
 			        outfile.write(str(self.data_string) + '\n')
+
+	def Write_temp2(self):
+		'''interval in seconds, dont update until interval is reached
+		Dont really know how the time stamp should work'''
+		assert self.interval != 0.0, 'Interval not set!'
+		if time.time() - self.interval > self.timestamp:
+			self.timestamp = time.time()
+			now = datetime.datetime.now()
+			#Remove all of this shit, seems "unnecessary"
+			if self.data_string == self.temp: 
+				self.data_string = self.temp
+			else:
+				self.data_string = self.temp
+			path = 'sensors/' + self.adress + '/'
+			if not os.path.exists(path):
+				os.makedirs(path)
+			with open('trend', 'a+') as outfile:
+			        outfile.write(str(int(time.time())) + '|' + str(self.data_string) + '\n')			        
