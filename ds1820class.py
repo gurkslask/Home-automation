@@ -51,7 +51,7 @@ class DS1820():
 			data = tempfile.read() #Read the whole file
 			temp_pos = data.find('t=') #Look for t, this is where the temperature is
 			data = data[temp_pos+2:]#remove 't='
-			data = int(data)/1000#insert comma, 
+			data = float(data)/1000#insert comma, 
 			self.temp = data
 			return data
 
@@ -99,5 +99,5 @@ class DS1820():
 			path = 'sensors/' + self.adress + '/'
 			if not os.path.exists(path):
 				os.makedirs(path)
-			with open('trend', 'a+') as outfile:
+			with open(path+'trend', 'a+') as outfile:
 			        outfile.write(str(int(time.time())) + '|' + str(self.data_string) + '\n')			        
