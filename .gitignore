@@ -1,3 +1,4 @@
 test
 sensors
 __pycache__
+*.pyc
