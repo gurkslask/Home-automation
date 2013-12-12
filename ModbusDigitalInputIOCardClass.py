@@ -15,7 +15,8 @@ class ModbusDigitalInputIOCard():
         self.IOValue = 0
         self.IOVariables = {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0}
         self.client = client
-        self.IOdict = IOdict
+        #Take all dictnames that relates to this IOadress
+        self.IOlist = [IOlist for i in IOdict if IOdict[i]['IOdevice']==self.IOadress]
 
     def ReadStatus(self):
         """
