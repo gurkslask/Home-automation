@@ -4,3 +4,5 @@ def IOdef():
 	'b_SV_OPEN_OUT_DO': {'Value': 0, 'IOdevice': 2, 'IOadress': 2},
 
 	}
+	return IOVariables
+	

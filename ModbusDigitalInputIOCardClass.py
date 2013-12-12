@@ -9,12 +9,13 @@ class ModbusDigitalInputIOCard():
     included as well, as this is where the connection 
     will happen
     """
-    def __init__(self, adress, client):
+    def __init__(self, adress, client, IOdict):
         self.IOcard = 0
         self.IOadress = adress
         self.IOValue = 0
         self.IOVariables = {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0,10:0,11:0,12:0,13:0,14:0,15:0}
         self.client = client
+        self.IOdict = IOdict
 
     def ReadStatus(self):
         """
@@ -25,6 +26,7 @@ class ModbusDigitalInputIOCard():
         my_digitalin_variable_1  =  ModbusDigitalInputIOCard__CLASS.IOVariables[0]
         my_digitalin_variable_2  =  ModbusDigitalInputIOCard__CLASS.IOVariables[1]
         """
+        self.IOVariables = [i for i in self.IOdict if self.IOdict[i]['IOdevice']==self.IOadress]
         self.Value = self.client.read_input_registers(self.IOadress, 1)
         self.DecToBin(int(self.Value.registers[0]))
 
