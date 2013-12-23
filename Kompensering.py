@@ -52,7 +52,7 @@ class Kompensering:
         self.k =  (self.y2 - self.y1) / (self.x2 - self.x1)#straight line equation
         self.m =  self.y1 - (self.x1 * self.k)
         self.SP = (PV * self.k) + self.m
-        return self.MinMax(self.SP), self.x2, self.x1
+        return self.MinMax(self.SP)
     
 
 

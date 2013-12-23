@@ -101,3 +101,14 @@ class DS1820():
 				os.makedirs(path)
 			with open(path+'trend', 'a+') as outfile:
 			        outfile.write(str(int(time.time())) + '|' + str(self.data_string) + '\n')			        
+
+class Write_temp():
+	'''Value of the signal and name that is should be stored'''
+	def __init__(value, name):
+		self.path = 'sensors/' + str(name) + '/'
+		self.value = value
+	def main(self):
+		if not os.path.exists(path):
+			os.makedirs(path)
+		with open(path+'trend', 'a+') as outfile:
+				      outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')			        
