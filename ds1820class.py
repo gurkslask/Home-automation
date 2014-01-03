@@ -13,6 +13,7 @@ class DS1820():
 		self.LowAlarmActivated = False
 		self.timestamp = 0
 		self.data_string = ''
+		self.trend_func = Write_temp(self.temp, self.adress)
 
 	def SetWriteInterval(self, interval):
 		self.interval = interval
@@ -49,11 +50,12 @@ class DS1820():
 		with the provided adress. Dont forget to run modprobe on the pi'''
 		with open(r'/sys/bus/w1/devices/'+self.adress+r'/w1_slave', 'r') as tempfile:
 			data = tempfile.read() #Read the whole file
-			temp_pos = data.find('t=') #Look for t, this is where the temperature is
-			data = data[temp_pos+2:]#remove 't='
-			data = float(data)/1000#insert comma, 
-			self.temp = data
-			return data
+			if 'YES' in data:
+				temp_pos = data.find('t=') #Look for t, this is where the temperature is
+				data = data[temp_pos+2:]#remove 't='
+				data = float(data)/1000#insert comma, 
+				self.temp = data
+				return data
 
 	def RunMainTemp(self):
 		'''This is where the magic happens'''
@@ -61,7 +63,8 @@ class DS1820():
 
 		self.CheckTemperatureAlarm()
 
-		self.Write_temp2()
+		#self.Write_temp2()
+		self.trend_func.main()
 
 		return self.temp
 
@@ -107,8 +110,12 @@ class Write_temp():
 	def __init__(value, name):
 		self.path = 'sensors/' + str(name) + '/'
 		self.value = value
+		self.file_date = time.time()
 	def main(self):
+		if self.file_date < time.time() - 86400:
+			#if the file_date is more than 24 hours old, make a 'new' file date with actual time
+			self.file_date = time.time() 
 		if not os.path.exists(path):
 			os.makedirs(path)
-		with open(path+'trend', 'a+') as outfile:
+		with open(path + self.file_date, 'a+') as outfile:
 				      outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')			        
