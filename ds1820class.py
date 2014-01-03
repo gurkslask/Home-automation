@@ -110,12 +110,12 @@ class Write_temp():
 	def __init__(self, value, name):
 		self.path = 'sensors/' + str(name) + '/'
 		self.value = value
-		self.file_date = time.time()
+		self.file_date = int(time.time())
 	def main(self):
 		if self.file_date < time.time() - 86400:
 			#if the file_date is more than 24 hours old, make a 'new' file date with actual time
-			self.file_date = time.time() 
+			self.file_date = int(time.time()) 
 		if not os.path.exists(self.path):
 			os.makedirs(self.path)
-		with open(self.path+'trend', 'a+') as outfile:
+		with open(self.path+str(self.file_date), 'a+') as outfile:
 			      outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')			        
