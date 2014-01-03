@@ -35,6 +35,7 @@ class Kompensering:
         """Calculate the actual setpoint based on the provided values and the
         actual outsidetemperature"""
         self.SortedList = sorted(self.DictVarden.keys())    #Sort values
+        self.IterValue=0
         for i in sorted(self.DictVarden.keys()):            #Loop through outtemperature
             if i > PV:  #Find nearest upper value
                 self.UpperValueKomp = i 
