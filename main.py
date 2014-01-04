@@ -2,14 +2,17 @@ from ds1820class import DS1820
 from ds1820class import Write_temp
 from Kompensering import Kompensering
 from OpenCloseValveClass import OpenCloseValve
+from IOdef import IOdef
 import time
 
+#Declare IO Variables
+IOVariables = IOdef
 
 #Declare temperaturecompensation
 Komp = Kompensering()
 Komp.SetVarden(20, 17)
-Komp.SetVarden(-10, 60)
-Komp.SetVarden(0, 55)
+Komp.SetVarden(-10, 40)
+Komp.SetVarden(0, 35)
 Komp.SetVarden(10, 30)
 Komp.SetVarden(-20, 65)
 Komp.SetMax(65)
@@ -55,6 +58,6 @@ while True:
 	if ActTimeLoop2 < time.time() + 5:
 		ActTimeLoop2 = time.time()
 
-		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1, b_SV_CLOSE_DO, b_SV_OPEN_DO)
+		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1, 'b_SV_CLOSE_DO', 'b_SV_OPEN_DO')
 
 	time.sleep(4)

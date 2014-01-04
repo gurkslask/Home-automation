@@ -7,6 +7,8 @@ class OpenCloseValve(object):
 		self.deadband = 2.0
 		self.Time_Open = 1.0 #Seconds the valve shall open
 		self.Time_Close = 0.5 #Seconds the valve shall close
+		self.Man_Open = 0
+		self.Man_Close = 0
 		self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
 		self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')
 
