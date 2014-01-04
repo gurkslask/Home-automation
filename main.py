@@ -6,7 +6,7 @@ from IOdef import IOdef
 import time
 
 #Declare IO Variables
-IOVariables = IOdef
+IOVariables = IOdef()
 
 #Declare temperaturecompensation
 Komp = Kompensering()
@@ -55,9 +55,11 @@ while True:
 		print('SP {0:.1f}'.format(Setpoint_VS1))
 		Setpoint_Log_VS1.main()
 
+		print('Loop 1')
+
 	if ActTimeLoop2 < time.time() + 5:
 		ActTimeLoop2 = time.time()
-
 		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1, 'b_SV_CLOSE_DO', 'b_SV_OPEN_DO', IOVariables)
+		print('Loop 2')
 
 	time.sleep(4)
