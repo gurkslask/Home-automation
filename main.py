@@ -58,6 +58,6 @@ while True:
 	if ActTimeLoop2 < time.time() + 5:
 		ActTimeLoop2 = time.time()
 
-		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1, 'b_SV_CLOSE_DO', 'b_SV_OPEN_DO')
+		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1, 'b_SV_CLOSE_DO', 'b_SV_OPEN_DO', IOVariables)
 
 	time.sleep(4)

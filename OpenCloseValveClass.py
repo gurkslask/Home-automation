@@ -12,7 +12,7 @@ class OpenCloseValve(object):
 		self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
 		self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')
 
-	def main(self, PV, SP, IOClose, IOOpen):
+	def main(self, PV, SP, IOClose, IOOpen, IOVariables):
 		self.deltaT = SP - PV
 		if self.deadband < self.deltaT:
 			#Open 
@@ -44,6 +44,8 @@ class OpenCloseValve(object):
 				self.Man_Open=0
 				IOVariables[IOOpen]['Value'] = 0
 				self.Write_Stat_Open.main()
+
+		return IOVariables
 
 
 
