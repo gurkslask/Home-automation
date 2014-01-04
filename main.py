@@ -43,7 +43,7 @@ ActTimeLoop2 = time.time()
 
 while True:
 	'''This is the main loop'''
-	if ActTimeLoop1 < time.time() + 20:
+	if ActTimeLoop1 +20< time.time():
 		ActTimeLoop1 = time.time()
 
 		print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
@@ -57,7 +57,7 @@ while True:
 
 		print('Loop 1')
 
-	if ActTimeLoop2 < time.time() + 5:
+	if ActTimeLoop2 +5< time.time():
 		ActTimeLoop2 = time.time()
 		VS1_SV1_Class.main(GT1.temp , Setpoint_VS1)
 		IOVariables['b_SV_CLOSE_DO']['Value'] = VS1_SV1_Class.Man_Close

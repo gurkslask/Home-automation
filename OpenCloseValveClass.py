@@ -23,7 +23,7 @@ class OpenCloseValve(object):
 			self.Man_Close = 1
 			self.Man_Open = 0
 
-		else
+		else:
 			self.Man_Close = 0 
 			self.Man_Open = 0
 
