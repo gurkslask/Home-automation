@@ -89,7 +89,7 @@ class MainLoop():
 				2. Show values
 				""")
 			choice=input('Enter an option: ')
-			self.choices.get(choice)
+			action = self.choices.get(choice)
 			if action:
 				action()
 			else:
@@ -98,13 +98,13 @@ class MainLoop():
 	def ChangeSP(self):
 		value1 = input('Enter outside temperature: ')
 		value2 = input('Enter forward temperature: ')
-		self.Komp.DictVarden[value1] = value2
+		self.Komp.DictVarden[int(value1)] =int(value2)
 
 	def ShowValues(self):
-		print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
-		print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
-		print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
-		print('SP {0:.1f}'.format(Setpoint_VS1))
+		print('GT1 {0:.1f}'.format(self.GT1.RunMainTemp()))
+		print('GT2 {0:.1f}'.format(self.VS1_GT2.RunMainTemp()))
+		print('GT3 {0:.1f}'.format(self.VS1_GT3.RunMainTemp()))
+		print('SP {0:.1f}'.format(self.Setpoint_VS1))
 
 
 
