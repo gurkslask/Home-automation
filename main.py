@@ -26,7 +26,7 @@ class MainLoop():
 
 		#Loggin of the compensation
 		self.Setpoint_VS1 = 0.0
-		self.Setpoint_Log_VS1 = Write_temp(Setpoint_VS1,'VS1_Setpoint')
+		self.Setpoint_Log_VS1 = Write_temp(self.Setpoint_VS1,'VS1_Setpoint')
 
 		#Declare temperature sensors
 		#Framledning
