@@ -56,29 +56,29 @@ class MainLoop():
 
 	def ControlLoop(self):
 			while True:
-		'''This is the main loop'''
-		if ActTimeLoop1 +20< time.time():
-			ActTimeLoop1 = time.time()
+				'''This is the main loop'''
+				if ActTimeLoop1 +20< time.time():
+					ActTimeLoop1 = time.time()
 
-			#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
-			#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
-			#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
-			
-			Setpoint_VS1 = Komp.CountSP(VS1_GT3.temp)
-			Setpoint_Log_VS1.value = Setpoint_VS1
-			#print('SP {0:.1f}'.format(Setpoint_VS1))
-			Setpoint_Log_VS1.main()
+					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
+					#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
+					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
+					
+					Setpoint_VS1 = Komp.CountSP(VS1_GT3.temp)
+					Setpoint_Log_VS1.value = Setpoint_VS1
+					#print('SP {0:.1f}'.format(Setpoint_VS1))
+					Setpoint_Log_VS1.main()
 
-			#print('Loop 1')
+					#print('Loop 1')
 
-		if ActTimeLoop2 +5< time.time():
-			ActTimeLoop2 = time.time()
-			VS1_SV1_Class.main(GT1.temp , Setpoint_VS1)
-			IOVariables['b_SV_CLOSE_DO']['Value'] = VS1_SV1_Class.Man_Close
-			IOVariables['b_SV_OPEN_DO']['Value'] = VS1_SV1_Class.Man_Open
-			#print('Loop 2')
+				if ActTimeLoop2 +5< time.time():
+					ActTimeLoop2 = time.time()
+					VS1_SV1_Class.main(GT1.temp , Setpoint_VS1)
+					IOVariables['b_SV_CLOSE_DO']['Value'] = VS1_SV1_Class.Man_Close
+					IOVariables['b_SV_OPEN_DO']['Value'] = VS1_SV1_Class.Man_Open
+					#print('Loop 2')
 
-		time.sleep(4)
+				time.sleep(4)
 
 
 
