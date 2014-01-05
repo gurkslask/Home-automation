@@ -57,25 +57,25 @@ class MainLoop():
 	def ControlLoop(self):
 			while True:
 				'''This is the main loop'''
-				if ActTimeLoop1 +20< time.time():
-					ActTimeLoop1 = time.time()
+				if self.ActTimeLoop1 +20< time.time():
+					self.ActTimeLoop1 = time.time()
 
 					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
 					#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
 					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
 					
-					Setpoint_VS1 = Komp.CountSP(VS1_GT3.temp)
-					Setpoint_Log_VS1.value = Setpoint_VS1
+					self.Setpoint_VS1 = self.Komp.CountSP(VS1_GT3.temp)
+					self.Setpoint_Log_VS1.value = self.Setpoint_VS1
 					#print('SP {0:.1f}'.format(Setpoint_VS1))
-					Setpoint_Log_VS1.main()
+					self.Setpoint_Log_VS1.main()
 
 					#print('Loop 1')
 
-				if ActTimeLoop2 +5< time.time():
-					ActTimeLoop2 = time.time()
-					VS1_SV1_Class.main(GT1.temp , Setpoint_VS1)
-					IOVariables['b_SV_CLOSE_DO']['Value'] = VS1_SV1_Class.Man_Close
-					IOVariables['b_SV_OPEN_DO']['Value'] = VS1_SV1_Class.Man_Open
+				if self.ActTimeLoop2 +5< time.time():
+					self.ActTimeLoop2 = time.time()
+					self.VS1_SV1_Class.main(self.GT1.temp , self.Setpoint_VS1)
+					self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close
+					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open
 					#print('Loop 2')
 
 				time.sleep(4)
@@ -99,7 +99,7 @@ class MainLoop():
 	def ChangeSP(self):
 		value1 = input('Enter outside temperature: ')
 		value2 = input('Enter forward temperature: ')
-		self.Setpoint_VS1.DictVarden[value1] = value2
+		self.Komp.DictVarden[value1] = value2
 
 	def ShowValues(self):
 		print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
