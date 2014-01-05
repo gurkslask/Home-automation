@@ -64,7 +64,7 @@ class MainLoop():
 					#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
 					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
 					
-					self.Setpoint_VS1 = self.Komp.CountSP(VS1_GT3.temp)
+					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
 					self.Setpoint_Log_VS1.value = self.Setpoint_VS1
 					#print('SP {0:.1f}'.format(Setpoint_VS1))
 					self.Setpoint_Log_VS1.main()
@@ -84,7 +84,6 @@ class MainLoop():
 
 	def InteractionLoop(self):
 		while True:
-			self.DisplayMenu()
 			print("""Home-automation menu:
 				1. Change Setpoint
 				2. Show values
