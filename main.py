@@ -101,7 +101,10 @@ class MainLoop():
 	def ChangeSP(self):
 		value1 = input('Enter outside temperature: ')
 		value2 = input('Enter forward temperature: ')
-		self.Komp.DictVarden[int(value1)] =int(value2)
+		try:
+			self.Komp.DictVarden[int(value1)] =int(value2)
+		except:
+			print('Invalid values entered')
 
 	def ShowValues(self):
 		print('GT1 {0:.1f}'.format(self.GT1.temp))
