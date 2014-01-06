@@ -63,6 +63,9 @@ class MainLoop():
 					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
 					#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
 					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
+					self.GT1.RunMainTemp()
+					self.VS1_GT2.RunMainTemp()
+					self.VS1_GT3.RunMainTemp()
 					
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
 					self.Setpoint_Log_VS1.value = self.Setpoint_VS1
@@ -101,9 +104,9 @@ class MainLoop():
 		self.Komp.DictVarden[int(value1)] =int(value2)
 
 	def ShowValues(self):
-		print('GT1 {0:.1f}'.format(self.GT1.RunMainTemp()))
-		print('GT2 {0:.1f}'.format(self.VS1_GT2.RunMainTemp()))
-		print('GT3 {0:.1f}'.format(self.VS1_GT3.RunMainTemp()))
+		print('GT1 {0:.1f}'.format(self.GT1.temp))
+		print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
+		print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
 
 
