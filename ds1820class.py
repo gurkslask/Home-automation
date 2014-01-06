@@ -64,6 +64,7 @@ class DS1820():
 		self.CheckTemperatureAlarm()
 
 		#self.Write_temp2()
+		self.trend_func.value = self.temp
 		self.trend_func.main()
 
 		return self.temp
