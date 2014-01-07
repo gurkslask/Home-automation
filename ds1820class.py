@@ -16,6 +16,7 @@ class DS1820():
 		self.trend_func = Write_temp(self.temp, self.adress)
 
 	def SetWriteInterval(self, interval):
+		'Can be removed, not needed, logging is in its own class'
 		self.interval = interval
 		return self.interval
 
@@ -107,7 +108,9 @@ class DS1820():
 			        outfile.write(str(int(time.time())) + '|' + str(self.data_string) + '\n')			        
 
 class Write_temp():
-	'''Value of the signal and name that is should be stored'''
+	''' A class that writes the actual value and time into a file
+	that changes every 24 hours
+	Value of the signal and name that is should be stored'''
 	def __init__(self, value, name):
 		self.path = 'sensors/' + str(name) + '/'
 		self.value = value
