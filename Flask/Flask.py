@@ -39,10 +39,11 @@ def simple():
 		for key in sorted(data_dict.keys()):
 			dates.append(dt.datetime.fromtimestamp(int(key)))
 			values.append(data_dict[key])
-		ax.plot_date(dates, values, '-', label=i)
+		ax.plot_date(dates, values, '-', label='aaa')
 		os.chdir('..')
 	ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
 	fig.autofmt_xdate()
+	#fig.legend(loc='upper left')
 	canvas=FigureCanvas(fig)
 	png_output = StringIO.StringIO()
 	canvas.print_png(png_output)
