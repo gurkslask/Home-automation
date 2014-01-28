@@ -43,6 +43,8 @@ class MainLoop():
 
 		#Declare Heating valve
 		self.VS1_SV1_Class = OpenCloseValve()
+		self.VS1_SV1_Open_Trend_Class = Write_temp(self.IOVariables['b_SV_OPEN_DO']['Value'] * 10, 'b_SV_OPEN_DO')
+		self.VS1_SV1_Close_Trend_Class = Write_temp(self.IOVariables['b_SV_CLOSE_DO']['Value'] * 10, 'b_SV_CLOSE_DO')
 
 		#Initialize the loops
 		self.ActTimeLoop1 = time.time()
@@ -58,6 +60,7 @@ class MainLoop():
 			while True:
 				'''This is the main loop'''
 				if self.ActTimeLoop1 +20< time.time():
+					
 					self.ActTimeLoop1 = time.time()
 
 					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
@@ -72,13 +75,20 @@ class MainLoop():
 					#print('SP {0:.1f}'.format(Setpoint_VS1))
 					self.Setpoint_Log_VS1.main()
 
+					#Run valve check
+					self.VS1_SV1_Class.main(self.GT1.temp , self.Setpoint_VS1)
+
 					#print('Loop 1')
 
 				if self.ActTimeLoop2 +5< time.time():
+
 					self.ActTimeLoop2 = time.time()
-					self.VS1_SV1_Class.main(self.GT1.temp , self.Setpoint_VS1)
-					self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close
-					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open
+
+					#Run control of the valve
+					self.VS1_SV1_Class.control()
+					self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close_OUT
+					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
+
 					#print('Loop 2')
 
 				time.sleep(4)
