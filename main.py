@@ -77,6 +77,8 @@ class MainLoop():
 
 					#Run valve check
 					self.VS1_SV1_Class.main(self.GT1.temp , self.Setpoint_VS1)
+					self.VS1_SV1_Open_Trend_Class.main()
+					self.VS1_SV1_Close_Trend_Class.main()
 
 					#print('Loop 1')
 
