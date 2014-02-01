@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from pymodbus.client.sync import ModbusTcpClient
 
 class ModbusDigitalOutputIOCard():

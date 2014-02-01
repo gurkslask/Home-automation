@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 class Kompensering:
     '''Kompensering är en klass som används
     för utekompensering. Man får sätta lite olika
