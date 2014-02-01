@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from ds1820class import DS1820
 from ds1820class import Write_temp
 from Kompensering import Kompensering
