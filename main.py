@@ -3,7 +3,7 @@ from ds1820class import Write_temp
 from Kompensering import Kompensering
 from OpenCloseValveClass import OpenCloseValve
 from IOdef import IOdef
-from Flask.Flask import hello, simple, Flask_run
+#from Flask.Flask import hello, simple, Flask_run
 from flask import Flask, make_response
 
 import time
@@ -126,10 +126,10 @@ class MainLoop():
 		print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
 		print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
-
+'''
 	def FlaskLoop(self):
 		Flask_run()
-
+'''
 
 
 
@@ -139,7 +139,7 @@ def main():
 	ML = MainLoop()
 	threading.Thread(target=ML.ControlLoop).start()
 	threading.Thread(target=ML.InteractionLoop).start()
-	threading.Thread(target=ML.FlaskLoop).start()
+	#threading.Thread(target=ML.FlaskLoop).start()
 
 
 if __name__ == '__main__':
