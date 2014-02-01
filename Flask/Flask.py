@@ -50,6 +50,11 @@ def simple():
 	response=make_response(png_output.getvalue())
 	response.headers['Content-Type'] = 'image/png'
 	return response
+
+	def Flaskrun():
+		app.run(host='0.0.0.0')
+
+
  
 if __name__ == "__main__":
 	app.run(host='0.0.0.0')
