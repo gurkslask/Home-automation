@@ -51,8 +51,8 @@ def simple():
 	response.headers['Content-Type'] = 'image/png'
 	return response
 
-	def Flaskrun():
-		app.run(host='0.0.0.0')
+def Flaskrun():
+	app.run(host='0.0.0.0')
 
 
  
