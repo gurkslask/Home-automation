@@ -139,9 +139,9 @@ class MainLoop():
 
 def main():
 	ML = MainLoop()
+	threading.Thread(target=ML.FlaskLoop).start()
 	threading.Thread(target=ML.ControlLoop).start()
 	threading.Thread(target=ML.InteractionLoop).start()
-	threading.Thread(target=ML.FlaskLoop).start()
 
 
 if __name__ == '__main__':
