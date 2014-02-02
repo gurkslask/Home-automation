@@ -5,7 +5,7 @@ from ds1820class import Write_temp
 from Kompensering import Kompensering
 from OpenCloseValveClass import OpenCloseValve
 from IOdef import IOdef
-#from Flask.Flask import hello, simple, Flask_run
+from Flask.Flask import hello, simple, Flask_run
 from flask import Flask, make_response
 
 import time
