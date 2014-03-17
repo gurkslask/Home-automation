@@ -104,6 +104,7 @@ class MainLoop():
 
 	def InteractionLoop(self):
 		while True:
+			'''
 			print("""Home-automation menu:
 				1. Change Setpoint
 				2. Show values
@@ -114,6 +115,10 @@ class MainLoop():
 				action()
 			else:
 				print("{0} is not a valid choice".format(choice))
+			'''
+			print(self.VS1_SV1_Class.Man_Open_OUT)
+			print(self.VS1_SV1_Class.Man_Close_OUT)
+			time.sleep(5)
 
 	def ChangeSP(self):
 		value1 = input('Enter outside temperature: ')

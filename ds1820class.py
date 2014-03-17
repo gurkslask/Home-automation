@@ -124,4 +124,10 @@ class Write_temp():
 		if not os.path.exists(self.path):
 			os.makedirs(self.path)
 		with open(self.path+str(self.file_date), 'a+') as outfile:
-			      outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')			        
+			      outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')	
+
+def DegreeDays():
+	''' A function that once a day calculate the median temperature of today and the amount
+	of DegreeDays returned are the "17 - median temperature" '''
+	#MedianTemperature =  
+	pass		        
