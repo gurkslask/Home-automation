@@ -116,8 +116,10 @@ class MainLoop():
 			else:
 				print("{0} is not a valid choice".format(choice))
 			'''
-			print(self.VS1_SV1_Class.Man_Open_OUT)
-			print(self.VS1_SV1_Class.Man_Close_OUT)
+			print('Fran klassen: Open - 'self.VS1_SV1_Class.Man_Open_OUT)
+			print('Fran klassen: Close - 'self.VS1_SV1_Class.Man_Close_OUT)
+			print('Fran databasen: Open - 'self.IOVariables['b_SV_OPEN_DO']['Value'])
+			print('Fran databasen: Close - 'self.IOVariables['b_SV_CLOSE_DO']['Value'])
 			time.sleep(5)
 
 	def ChangeSP(self):
