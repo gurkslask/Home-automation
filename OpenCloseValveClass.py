@@ -45,16 +45,17 @@ class OpenCloseValve(object):
 			if self.Control_Time + self.Time_Close < time.time():
 				self.Man_Close_OUT = True
 				#Close variable
-			else:
-				self.Man_Close_OUT = False
-				self.Control_Active = False
+		else:
+			self.Man_Close_OUT = False
+			self.Control_Active = False
+
 		if self.Man_Open:
 			if self.Control_Time + self.Time_Open < time.time():
 				self.Man_Open_OUT = True
 				#Open variable
-			else:
-				self.Man_Open_OUT = False
-				self.Control_Active = False
+		else:
+			self.Man_Open_OUT = False
+			self.Control_Active = False
 
 
 
