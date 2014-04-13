@@ -104,7 +104,7 @@ class MainLoop():
 
 	def InteractionLoop(self):
 		while True:
-			'''
+			
 			print("""Home-automation menu:
 				1. Change Setpoint
 				2. Show values
@@ -115,11 +115,11 @@ class MainLoop():
 				action()
 			else:
 				print("{0} is not a valid choice".format(choice))
-			'''
-			print('Fran klassen: Open - ' + str(self.VS1_SV1_Class.Man_Open_OUT))
-			print('Fran klassen: Close - ' + str(self.VS1_SV1_Class.Man_Close_OUT))
-			print('Fran databasen: Open - ' + str(self.IOVariables['b_SV_OPEN_DO']['Value']))
-			print('Fran databasen: Close - ' + str(self.IOVariables['b_SV_CLOSE_DO']['Value']))
+			
+			#print('Fran klassen: Open - ' + str(self.VS1_SV1_Class.Man_Open_OUT))
+			#print('Fran klassen: Close - ' + str(self.VS1_SV1_Class.Man_Close_OUT))
+			#print('Fran databasen: Open - ' + str(self.IOVariables['b_SV_OPEN_DO']['Value']))
+			#print('Fran databasen: Close - ' + str(self.IOVariables['b_SV_CLOSE_DO']['Value']))
 			time.sleep(5)
 
 	def ChangeSP(self):
@@ -146,7 +146,7 @@ class MainLoop():
 
 def main():
 	ML = MainLoop()
-	#threading.Thread(target=ML.FlaskLoop).start()
+	threading.Thread(target=ML.FlaskLoop).start()
 	threading.Thread(target=ML.ControlLoop).start()
 	threading.Thread(target=ML.InteractionLoop).start()
 
