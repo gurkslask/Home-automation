@@ -7,6 +7,7 @@ from OpenCloseValveClass import OpenCloseValve
 from IOdef import IOdef
 from Flask.Flask import simple, hello, Flaskrun
 from flask import Flask, make_response
+from scraping import GetData
 
 import time
 import threading
@@ -61,11 +62,13 @@ class MainLoop():
 					"2" : self.ShowValues
 				}
 
+		self.Weather_State=''
+
 	def ControlLoop(self):
 			while True:
 				'''This is the main loop'''
 				if self.ActTimeLoop1 +20< time.time():
-					
+					#20 seconds loop
 					self.ActTimeLoop1 = time.time()
 
 					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
@@ -88,7 +91,7 @@ class MainLoop():
 					#print('Loop 1')
 
 				if self.ActTimeLoop2 +5< time.time():
-
+					#5seconds loop
 					self.ActTimeLoop2 = time.time()
 
 					#Run control of the valve
@@ -97,6 +100,10 @@ class MainLoop():
 					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
 
 					#print('Loop 2')
+
+				if self.ActTimeLoop1 +14400< time.time():
+					#4 hour loop
+					self.Weather_State=GetData()
 
 				time.sleep(4)
 
@@ -109,7 +116,7 @@ class MainLoop():
 				1. Change Setpoint
 				2. Show values
 				""")
-			choice=input('Enter an option: ')
+			choice=raw_input('Enter an option: ')
 			action = self.choices.get(choice)
 			if action:
 				action()

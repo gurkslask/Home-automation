@@ -2,3 +2,4 @@ test
 sensors
 __pycache__
 *.pyc
+test.py
