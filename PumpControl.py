@@ -25,11 +25,11 @@ class PumpControl(object):
 def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temperature):
 
 	Weather_dict={
-		'Rain showers' : 7 # Rain showers - regnskurar
-		'Cloudy' : 7 # Cloudy - moln
-		'Fair' : 5 # Fair - 75% sol
-		'Partly cloudy' : 6 # Partly cloudy - 50 50
-		'Clear sky' : 4 # Clear sky - soligt
+		'Rain showers' : 7, # Rain showers - regnskurar
+		'Cloudy' : 7, # Cloudy - moln
+		'Fair' : 5, # Fair - 75% sol
+		'Partly cloudy' : 6, # Partly cloudy - 50 50
+		'Clear sky' : 4, # Clear sky - soligt
 		'Rain' : 7 # Rain - regn
 	}
 
