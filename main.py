@@ -66,7 +66,7 @@ class MainLoop():
 					"1" : self.ChangeSP, 
 					"2" : self.ShowValues,
 					"3" : self.ShowWeather,
-					"4" : self.ToggleOut
+					"4" : self.ToggleOut,
 					"0" : self.exit
 				}
 
