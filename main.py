@@ -135,6 +135,8 @@ class MainLoop():
 				1. Change Setpoint
 				2. Show values
 				3. Show weather 
+				4. Toggle test bit
+				5. Exit
 				""")
 			choice=raw_input('Enter an option: ')
 			action = self.choices.get(choice)
