@@ -5,7 +5,7 @@ from ds1820class import Write_temp
 from Kompensering import Kompensering
 from OpenCloseValveClass import OpenCloseValve
 from IOdef import IOdef
-from Flask.Flask import simple, hello, Flaskrun
+from Flask.Flask import simple, hello, Flaskrun, shutdown_server
 from flask import Flask, make_response
 from scraping import GetData
 from PumpControl import PumpControl, Control_of_CP2
@@ -71,9 +71,10 @@ class MainLoop():
 				}
 
 		self.Weather_State=''
+		self.exit_flag=False
 
 	def ControlLoop(self):
-			while True:
+			while not exit_flag:
 				'''This is the main loop'''
 				if self.ActTimeLoop1 +20< time.time():
 					#20 seconds loop
@@ -129,7 +130,7 @@ class MainLoop():
 
 
 	def InteractionLoop(self):
-		while True:
+		while not exit_flag:
 			
 			print("""Home-automation menu:
 				1. Change Setpoint
@@ -171,6 +172,10 @@ class MainLoop():
 		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
 
 	def exit(self):
+		shutdown_server()
+		self.exit_flag = True
+		print('System exits...')
+		time.sleep(5)
 		raise SystemExit
 
 	def FlaskLoop(self):
