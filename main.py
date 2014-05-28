@@ -8,6 +8,7 @@ from IOdef import IOdef
 from Flask.Flask import simple, hello, Flaskrun
 from flask import Flask, make_response
 from scraping import GetData
+from PumpControl import PumpControl, Control_of_CP2
 
 import time
 import threading
@@ -56,6 +57,9 @@ class MainLoop():
 		self.ActTimeLoop1 = time.time()
 		self.ActTimeLoop2 = time.time()
 
+		#Declare Cirkulation pump sun heaters
+		self.VS1_CP2_Class = PumpControl()
+
 		#Interaction menu
 		self.choices = {
 					"1" : self.ChangeSP, 
@@ -98,6 +102,15 @@ class MainLoop():
 					self.VS1_SV1_Class.control()
 					self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close_OUT
 					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
+
+					#Run check if the sun warm pump should go
+					self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, 10.0, 10.0)
+
+					#Run control of sun warming pump
+					self.VS1_CP2_Class()
+					self.IOVariables['b_P2_DO']['Value']= self.VS1_CP2_Class.Out
+
+
 
 					#print('Loop 2')
 
