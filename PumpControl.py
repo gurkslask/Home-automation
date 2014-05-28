@@ -38,7 +38,7 @@ def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temper
 	except:
 		hysteresis = 7
 		print('Bad weather string!')
-		
+	IOoutput=False		
 	if Sun_heater_temperature > Tank_temperature +  hysteresis:
 		IOoutput = True
 	elif Sun_heater_temperature < Tank_temperature:

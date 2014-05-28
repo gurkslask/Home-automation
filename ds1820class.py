@@ -114,7 +114,7 @@ class Write_temp():
 	that changes every 24 hours
 	Value of the signal and name that is should be stored'''
 	def __init__(self, value, name):
-		self.path = '/home/pi/Projects/Home-automation/sensors' + str(name) + '/'
+		self.path = '/home/pi/Projects/Home-automation/sensors/' + str(name) + '/'
 		self.value = value
 		self.file_date = int(time.time())
 	def main(self):
