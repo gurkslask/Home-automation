@@ -56,6 +56,7 @@ class MainLoop():
 		#Initialize the loops
 		self.ActTimeLoop1 = time.time()
 		self.ActTimeLoop2 = time.time()
+		self.ActTimeLoop3 = time.time() - 14400
 
 		#Declare Cirkulation pump sun heaters
 		self.VS1_CP2_Class = PumpControl()
@@ -63,7 +64,8 @@ class MainLoop():
 		#Interaction menu
 		self.choices = {
 					"1" : self.ChangeSP, 
-					"2" : self.ShowValues
+					"2" : self.ShowValues,
+					"3" : self.ShowWeather
 				}
 
 		self.Weather_State=''
@@ -114,8 +116,10 @@ class MainLoop():
 
 					#print('Loop 2')
 
-				if self.ActTimeLoop1 +14400< time.time():
+				if self.ActTimeLoop3 +14400< time.time():
 					#4 hour loop
+					self.ActTimeLoop3 = time.time()
+
 					self.Weather_State=GetData()
 
 				time.sleep(4)
@@ -128,6 +132,7 @@ class MainLoop():
 			print("""Home-automation menu:
 				1. Change Setpoint
 				2. Show values
+				3. Show weather 
 				""")
 			choice=raw_input('Enter an option: ')
 			action = self.choices.get(choice)
@@ -155,6 +160,8 @@ class MainLoop():
 		print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
 		print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
+	def ShowWeather(self):
+		print(self.Weather_State)
 
 	def FlaskLoop(self):
 		Flaskrun()
