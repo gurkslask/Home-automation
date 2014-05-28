@@ -74,7 +74,7 @@ class MainLoop():
 		self.exit_flag=False
 
 	def ControlLoop(self):
-			while not exit_flag:
+			while not self.exit_flag:
 				'''This is the main loop'''
 				if self.ActTimeLoop1 +20< time.time():
 					#20 seconds loop
@@ -130,7 +130,7 @@ class MainLoop():
 
 
 	def InteractionLoop(self):
-		while not exit_flag:
+		while not self.exit_flag:
 			
 			print("""Home-automation menu:
 				1. Change Setpoint
@@ -172,7 +172,9 @@ class MainLoop():
 		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
 
 	def exit(self):
+		print('System exits...')
 		shutdown_server()
+		print('System exits...')
 		self.exit_flag = True
 		print('System exits...')
 		time.sleep(5)
