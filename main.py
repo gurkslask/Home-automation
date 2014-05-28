@@ -65,7 +65,8 @@ class MainLoop():
 		self.choices = {
 					"1" : self.ChangeSP, 
 					"2" : self.ShowValues,
-					"3" : self.ShowWeather
+					"3" : self.ShowWeather,
+					"4" : self.ToggleOut
 				}
 
 		self.Weather_State=''
@@ -162,6 +163,9 @@ class MainLoop():
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
 	def ShowWeather(self):
 		print(self.Weather_State)
+
+	def ToggleOut(self):
+		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
 
 	def FlaskLoop(self):
 		Flaskrun()
