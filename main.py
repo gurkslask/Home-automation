@@ -67,6 +67,7 @@ class MainLoop():
 					"2" : self.ShowValues,
 					"3" : self.ShowWeather,
 					"4" : self.ToggleOut
+					"0" : self.exit
 				}
 
 		self.Weather_State=''
@@ -166,6 +167,9 @@ class MainLoop():
 
 	def ToggleOut(self):
 		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
+
+	def exit(self):
+		raise SystemExit
 
 	def FlaskLoop(self):
 		Flaskrun()
