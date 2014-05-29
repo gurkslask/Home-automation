@@ -173,7 +173,7 @@ class MainLoop():
 
 	def exit(self):
 		print('System exits...')
-		shutdown_server()
+		#shutdown_server()
 		print('System exits...')
 		self.exit_flag = True
 		print('System exits...')
