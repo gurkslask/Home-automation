@@ -58,6 +58,11 @@ def simple():
 	response.headers['Content-Type'] = 'image/png'
 	return response
 
+@app.route('/shutdown', methods=['POST'])
+def shutdown():
+	shutdown_server()
+	return 'Server shutting down...'
+
 def Flaskrun():
 	app.run(host='0.0.0.0')
 

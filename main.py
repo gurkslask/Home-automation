@@ -180,8 +180,8 @@ class MainLoop():
 		time.sleep(5)
 		raise SystemExit
 
-	def FlaskLoop(self):
-		Flaskrun()
+	#def FlaskLoop(self):
+		#Flaskrun()
 
 
 
@@ -190,7 +190,7 @@ class MainLoop():
 
 def main():
 	ML = MainLoop()
-	threading.Thread(target=ML.FlaskLoop).start()
+	#threading.Thread(target=ML.FlaskLoop).start()
 	threading.Thread(target=ML.ControlLoop).start()
 	threading.Thread(target=ML.InteractionLoop).start()
 
