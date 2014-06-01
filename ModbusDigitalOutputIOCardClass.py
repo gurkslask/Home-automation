@@ -10,12 +10,14 @@ class ModbusDigitalOutputIOCard():
     must be specified. The modbus client must be 
     included as well, as this is where the connection 
     will happen
-    """    def __init__(self, adress, client):
+    """    def __init__(self, adress, client, IOdict):
         self.IOcard = 0
         self.IOadress = adress
         self.IOValue = 0
         self.IOVariables = {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0}
         self.client = client
+        self.IOlist = [i for i in IOdict if IOdict[i]['IOdevice']==self.IOadress]
+
 
     def BinToDec(self):
         '''
