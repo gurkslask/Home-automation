@@ -44,7 +44,4 @@ class ModbusDigitalInputIOCard():
            bitVal = BinVal[len(BinVal)-1-i]
            self.IOVariables[i] = bitVal
 
-    def SetAddress(self, Address):
-        #Use this method to set the address
-        self.IOadress = Address
 
