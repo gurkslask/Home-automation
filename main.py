@@ -83,10 +83,13 @@ class MainLoop():
 					#print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
 					#print('GT2 {0:.1f}'.format(VS1_GT2.RunMainTemp()))
 					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
+					
+					#Run the sensors
 					self.GT1.RunMainTemp()
 					self.VS1_GT2.RunMainTemp()
 					self.VS1_GT3.RunMainTemp()
 					
+					#Calculate setpoint
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
 					self.Setpoint_Log_VS1.value = self.Setpoint_VS1
 					#print('SP {0:.1f}'.format(Setpoint_VS1))
