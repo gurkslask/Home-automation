@@ -9,6 +9,7 @@ from Flask.Flask import simple, hello, Flaskrun, shutdown_server
 from flask import Flask, make_response
 from scraping import GetData
 from PumpControl import PumpControl, Control_of_CP2
+from ModBus import runModBus
 
 import time
 import threading
@@ -100,7 +101,14 @@ class MainLoop():
 					self.VS1_SV1_Open_Trend_Class.main()
 					self.VS1_SV1_Close_Trend_Class.main()
 
+					try:
+						runModBus()
+					except Exception, e:
+						raise e
+						print('Something went wrong with the modbus!')
+
 					#print('Loop 1')
+
 
 				if self.ActTimeLoop2 +5< time.time():
 					#5seconds loop
@@ -173,6 +181,7 @@ class MainLoop():
 
 	def ToggleOut(self):
 		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
+		print(b_test info: {testvar}.format(testvar=self.IOVariables['b_Test']))
 
 	def exit(self):
 		print('System exits...')
