@@ -13,7 +13,7 @@ logging.basicConfig()
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
-def runModBus():
+def runModBus(IOVariables):
     #---------------------------------------------------------------------------#
     # choose the client you want
     #---------------------------------------------------------------------------#
@@ -29,7 +29,7 @@ def runModBus():
     # configure io card
     #---------------------------------------------------------------------------#
     #Digital_In_1 = ModbusDigitalInputIOCard(0, client)     
-    Digital_Out_1 = ModbusDigitalOutputIOCard(2048, client)          
+    Digital_Out_1 = ModbusDigitalOutputIOCard(2048, client, IOVariables)          
     #---------------------------------------------------------------------------#
     # Run io card
     #---------------------------------------------------------------------------#

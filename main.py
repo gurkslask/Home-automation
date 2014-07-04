@@ -102,7 +102,7 @@ class MainLoop():
 					self.VS1_SV1_Close_Trend_Class.main()
 
 					try:
-						runModBus()
+						runModBus(self.IOVariables)
 					except Exception, e:
 						raise e
 						print('Something went wrong with the modbus!')
