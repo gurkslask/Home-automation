@@ -28,7 +28,8 @@ def runModBus(IOVariables):
     #---------------------------------------------------------------------------#
     # configure io card
     #---------------------------------------------------------------------------#
-    #Digital_In_1 = ModbusDigitalInputIOCard(0, client)     
+    #Digital_In_1 = ModbusDigitalInputIOCard(0, client)   
+    print('IOVariables in modbus.py: {IOVariables} '.format(IOVariables=IOVariables))  
     Digital_Out_1 = ModbusDigitalOutputIOCard(2048, client, IOVariables)          
     #---------------------------------------------------------------------------#
     # Run io card

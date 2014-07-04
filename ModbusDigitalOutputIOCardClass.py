@@ -47,7 +47,7 @@ class ModbusDigitalOutputIOCard():
               
     def WriteStatus(self):
         #Write it all down to the modbus device
-        print('iolist: {iolist} \n bindata = {bin} '.format( iolist = self.IOlist, bin = self.BinToDec()))
+        print('iolist: {iolist} \n bindata = {bin} \n IOdict = {IOdict} '.format( iolist = self.IOlist, bin = self.BinToDec(), IOdict=self.IOdict ))
         self.client.write_registers(self.IOadress, self.BinToDec())
 
 #This is only for testing
