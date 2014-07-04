@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from pymodbus.client.sync import ModbusTcpClient
+from distutils.util import strtobool
 
 
 class ModbusDigitalOutputIOCard():
@@ -20,7 +21,7 @@ class ModbusDigitalOutputIOCard():
         self.IOVariables = {0:0,1:0,2:0,3:0,4:0,5:0,6:0,7:0}
         self.client = client
         #List all of the variables that are declared for this IOdevice
-        self.IOlist = [i for i in self.IOdict if self.IOdict[i]['IOdevice']==self.IOadress]
+        self.IOlist = [ strtobool(str(i)) for i in self.IOdict if self.IOdict[i]['IOdevice']==self.IOadress]
 
 
     def BinToDec(self):
