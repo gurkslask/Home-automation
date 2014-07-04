@@ -181,7 +181,7 @@ class MainLoop():
 
 	def ToggleOut(self):
 		self.IOVariables['b_Test']['Value'] = not self.IOVariables['b_Test']['Value']
-		print(b_test info: {testvar}.format(testvar=self.IOVariables['b_Test']))
+		print('b_test info: {testvar}'.format(testvar=self.IOVariables['b_Test']))
 
 	def exit(self):
 		print('System exits...')
