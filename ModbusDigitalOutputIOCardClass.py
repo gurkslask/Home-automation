@@ -36,7 +36,7 @@ class ModbusDigitalOutputIOCard():
         '''
         #Take all the variables for this device and check their values
         for i in self.IOlist:
-            self.IOVariables[self.IOdict[i]['IOadress']] =  strtobool (str(self.IOdict[i]['Value'))]
+            self.IOVariables[self.IOdict[i]['IOadress']] =  strtobool(str(self.IOdict[i]['Value']))
         #Make the decimal numbers to a binary number, ie. 0110 = 6
         Bindata=''
         for i in self.IOVariables:
