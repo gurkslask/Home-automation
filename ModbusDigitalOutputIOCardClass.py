@@ -48,24 +48,6 @@ class ModbusDigitalOutputIOCard():
               
     def WriteStatus(self):
         #Write it all down to the modbus device
-        print('iolist: {iolist} \n bindata = {bin} \n IOdict = {IOdict} '.format( iolist = self.IOlist, bin = self.BinToDec(), IOdict=self.IOdict ))
+        #print('iolist: {iolist} \n bindata = {bin} \n IOdict = {IOdict} '.format( iolist = self.IOlist, bin = self.BinToDec(), IOdict=self.IOdict ))
         self.client.write_registers(self.IOadress, self.BinToDec())
 
-#This is only for testing
-def IOdef():
-    IOVariables={
-    'b_P1_DO': {'Value': 0, 'IOdevice': 2, 'IOadress': 1, 'Comment': 'Radiator cirk pumpen'},
-    'b_SV_OPEN_DO': {'Value': 1, 'IOdevice': 2, 'IOadress': 2, 'Comment': 'Open heating valve'}, 
-    'b_SV_CLOSE_DO': {'Value': 1, 'IOdevice': 2, 'IOadress': 3, 'Comment': 'Close heating valve'},
-    'b_P2_DO': {'Value': 0, 'IOdevice': 2, 'IOadress': 4, 'Comment': 'Sunwarming cirk pump'},
-    'b_Test': {'Value': 0, 'IOdevice': 2, 'IOadress': 5, 'Comment': 'Test var'},
-    }
-    return IOVariables
-
-if __name__ == '__main__':
-
-    a = ModbusDigitalOutputIOCard(2, 0, IOdef())
-    print(a.IOVariables)
-    print(a.BinToDec())
-    print(a.IOlist)
-    print(a.IOVariables)

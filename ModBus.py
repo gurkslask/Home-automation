@@ -8,10 +8,10 @@ from ModbusDigitalOutputIOCardClass import ModbusDigitalOutputIOCard
 #---------------------------------------------------------------------------#
 # configure the client logging
 #---------------------------------------------------------------------------#
-import logging
-logging.basicConfig()
-log = logging.getLogger()
-log.setLevel(logging.DEBUG)
+#import logging
+#logging.basicConfig()
+#log = logging.getLogger()
+#log.setLevel(logging.DEBUG)
 
 def runModBus(IOVariables):
     #---------------------------------------------------------------------------#
@@ -29,7 +29,7 @@ def runModBus(IOVariables):
     # configure io card
     #---------------------------------------------------------------------------#
     #Digital_In_1 = ModbusDigitalInputIOCard(0, client)   
-    print('IOVariables in modbus.py: {IOVariables} '.format(IOVariables=IOVariables))  
+    #print('IOVariables in modbus.py: {IOVariables} '.format(IOVariables=IOVariables))  
     Digital_Out_1 = ModbusDigitalOutputIOCard(2048, client, IOVariables)          
     #---------------------------------------------------------------------------#
     # Run io card
