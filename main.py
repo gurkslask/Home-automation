@@ -43,12 +43,15 @@ class MainLoop():
 		self.VS1_GT2 = DS1820('28-00000524056e')
 		#Ute
 		self.VS1_GT3 = DS1820('28-0000052407e0')
+		#@Solar panels
+		self.SUN_GT1 = DS1820('28-00000523ab8e')
+
 
 		#Declare logging interval
 		self.GT1.SetWriteInterval(60)
 		self.VS1_GT2.SetWriteInterval(60)
 		self.VS1_GT3.SetWriteInterval(60)
-
+		self.SUN_GT1.SetWriteInterval(60)
 		#Declare Heating valve
 		self.VS1_SV1_Class = OpenCloseValve()
 		self.VS1_SV1_Open_Trend_Class = Write_temp(self.IOVariables['b_SV_OPEN_DO']['Value'] * 10, 'b_SV_OPEN_DO')
