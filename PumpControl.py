@@ -11,11 +11,22 @@ class PumpControl(object):
 		self.Man = False
 		#Tie this signal to the actual output
 		self.Out = False
+		self.Comment = ''
+		self.Name = ''
+		self.S1 = 0#today
+		self.S2 = 0#yesterday
+		self.S3 = 0#total
+		self.T1 = 0#today
+		self.T2 = 0#yesterday
+		self.T3 = 0#total
 	def main(self, DI):
-		if self.Man:
+		if self.Man and not self.Out:
 			self.Out = True
 			print('Pump out went True')
-		elif not self.Man:
+			self.S1 += 1
+			self.S3 += 1
+
+		elif not self.Man and self.Out:
 			print('Pump out went False')
 			self.Out = False
 
@@ -23,6 +34,11 @@ class PumpControl(object):
 			self.Larm = True
 		else:
 			self.Larm = False
+
+
+	def NewDay(self):
+		#move today to yesterday and reset today, DONT FORGET TO PUT THIS IN CHECKIFNEWDAY METHOD IN MAIN
+		self.S2, self.S1 = self.S1, 0
 
 def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temperature):
 

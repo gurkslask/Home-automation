@@ -13,6 +13,7 @@ from ModBus import runModBus
 
 import time
 import threading
+import datetime
 
 
 
@@ -39,14 +40,24 @@ class MainLoop():
 		#Declare temperature sensors
 		#Framledning
 		self.GT1 = DS1820('28-00000523a1cb')
+		self.Comment='This is the sensor that measures the water temperature to the radiators'
+		self.Name='VS1_GT1'
 		#Retur
 		self.VS1_GT2 = DS1820('28-00000524056e')
+		self.Comment='This is the sensor that measures the water temperature from the radiators'
+		self.Name='VS1_GT2'
 		#Ute
 		self.VS1_GT3 = DS1820('28-0000052407e0')
+		self.Comment='This is the sensor that measures the outdoor temperature'
+		self.Name='VS1_GT3'
 		#@Solar panels
 		self.SUN_GT1 = DS1820('28-00000523ab8e')
+		self.Comment='This is the sensor that measures the water temperature to the solar panels'
+		self.Name='SUN_GT1'
 		# After solar panels
 		self.SUN_GT2 = DS1820('28-00000523ab8e')
+		self.Comment='This is the sensor that measures the water temperature from the solar panels'
+		self.Name='VS1_GT2'
 
 
 		#Declare logging interval
@@ -67,6 +78,8 @@ class MainLoop():
 
 		#Declare Cirkulation pump sun heaters
 		self.VS1_CP2_Class = PumpControl()
+		self.VS1_CP2_Class.Comment='This is the pump that pumps water up to the sun heaters'
+		self.VS1_CP2_Class.Name='SUN_P1'
 
 		#Interaction menu
 		self.choices = {
@@ -79,6 +92,7 @@ class MainLoop():
 
 		self.Weather_State=''
 		self.exit_flag=False
+		self.datumtid=datetime.date.today()
 
 	def ControlLoop(self):
 			while not self.exit_flag:
@@ -134,7 +148,7 @@ class MainLoop():
 					self.VS1_CP2_Class.main(0)
 					self.IOVariables['b_P2_DO']['Value']= self.VS1_CP2_Class.Out
 
-
+					self.CheckIfNewDay()
 
 					#print('Loop 2')
 
@@ -201,6 +215,13 @@ class MainLoop():
 		print('System exits...')
 		time.sleep(5)
 		raise SystemExit
+
+
+	def CheckIfNewDay(self):
+		if self.datetime.day != datetime.today().day:
+			#if a new day...
+			self.datumtid=datetime.date.today()
+
 
 	#def FlaskLoop(self):
 		#Flaskrun()
