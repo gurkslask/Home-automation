@@ -1,5 +1,4 @@
-import requests
-from bs4 import BeautifulSoup
+import urllib2
 
 def GetData():
 	#Open forecast homepage
