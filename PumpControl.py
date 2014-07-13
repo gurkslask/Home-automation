@@ -30,7 +30,7 @@ def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temper
 		'Fair' : 5, # Fair - 75% sol
 		'Partly cloudy' : 6, # Partly cloudy - 50 50
 		'Clear sky' : 4, # Clear sky - soligt
-		'Rain' : 7 # Rain - regn
+		'Rain' : 7, # Rain - regn
 		'None' : 7 # No info
 	}
 
