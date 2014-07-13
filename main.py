@@ -45,6 +45,8 @@ class MainLoop():
 		self.VS1_GT3 = DS1820('28-0000052407e0')
 		#@Solar panels
 		self.SUN_GT1 = DS1820('28-00000523ab8e')
+		# After solar panels
+		self.SUN_GT2 = DS1820('28-00000523ab8e')
 
 
 		#Declare logging interval
@@ -52,6 +54,7 @@ class MainLoop():
 		self.VS1_GT2.SetWriteInterval(60)
 		self.VS1_GT3.SetWriteInterval(60)
 		self.SUN_GT1.SetWriteInterval(60)
+		self.SUN_GT2.SetWriteInterval(60)
 		#Declare Heating valve
 		self.VS1_SV1_Class = OpenCloseValve()
 		self.VS1_SV1_Open_Trend_Class = Write_temp(self.IOVariables['b_SV_OPEN_DO']['Value'] * 10, 'b_SV_OPEN_DO')
@@ -93,6 +96,7 @@ class MainLoop():
 					self.VS1_GT2.RunMainTemp()
 					self.VS1_GT3.RunMainTemp()
 					self.SUN_GT1.RunMainTemp()
+					self.SUN_GT2.RunMainTemp()
 					
 					#Calculate setpoint
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
@@ -124,7 +128,7 @@ class MainLoop():
 					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
 
 					#Run check if the sun warm pump should go
-					self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, 10.0, self.SUN_GT1.temp)
+					self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, self.SUN_GT2.temp, self.SUN_GT1.temp)
 
 					#Run control of sun warming pump
 					self.VS1_CP2_Class.main(0)
@@ -152,7 +156,7 @@ class MainLoop():
 				2. Show values
 				3. Show weather 
 				4. Toggle test bit
-				0. Exit (not working atm)
+				0. Exit 
 				""")
 			choice=raw_input('Enter an option: ')
 			action = self.choices.get(choice)
@@ -179,7 +183,8 @@ class MainLoop():
 		print('GT1 {0:.1f}'.format(self.GT1.temp))
 		print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
 		print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
-		print('Solpanel - GT1 - uppe{0:.1f}'.format(self.SUN_GT1.temp))
+		print('Solpanel - GT1 - uppe {0:.1f}'.format(self.SUN_GT1.temp))
+		print('Solpanel - GT2 - nere {0:.1f}'.format(self.SUN_GT2.temp))
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
 	def ShowWeather(self):
 		print(self.Weather_State)

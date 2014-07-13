@@ -14,7 +14,9 @@ class PumpControl(object):
 	def main(self, DI):
 		if self.Man:
 			self.Out = True
+			print('Pump out went True')
 		elif not self.Man:
+			print('Pump out went False')
 			self.Out = False
 
 		if DI != self.Out:
