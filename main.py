@@ -123,7 +123,7 @@ class MainLoop():
 					self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
 
 					#Run check if the sun warm pump should go
-					self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, 10.0, 10.0)
+					self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, 10.0, self.SUN_GT1.temp)
 
 					#Run control of sun warming pump
 					self.VS1_CP2_Class.main(0)
