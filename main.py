@@ -92,6 +92,7 @@ class MainLoop():
 					self.GT1.RunMainTemp()
 					self.VS1_GT2.RunMainTemp()
 					self.VS1_GT3.RunMainTemp()
+					self.SUN_GT1.RunMainTemp()
 					
 					#Calculate setpoint
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
@@ -178,6 +179,7 @@ class MainLoop():
 		print('GT1 {0:.1f}'.format(self.GT1.temp))
 		print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
 		print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
+		print('Solpanel - GT1 - uppe{0:.1f}'.format(self.SUN_GT1.temp))
 		print('SP {0:.1f}'.format(self.Setpoint_VS1))
 	def ShowWeather(self):
 		print(self.Weather_State)

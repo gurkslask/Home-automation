@@ -1,4 +1,5 @@
-import urllib2
+import requests
+from bs4 import BeautifulSoup
 
 def GetData():
 	#Open forecast homepage
@@ -8,11 +9,19 @@ def GetData():
 
 	#Find start position
 	start_pos=data.find('width="38" alt=')
-	#From start position, find end position
-	end_pos=data[start_pos:].find('" style') + start_pos 
-	#Here we have our string
-	forecast=data[start_pos+16:end_pos]
+	if start_pos != -1:
+		#From start position, find end position
+		end_pos=data[start_pos:].find('" style') + start_pos 
+		#Here we have our string
+		forecast=data[start_pos+16:end_pos]
+	else:
+		forecast = 'None'
+
 	return forecast
+
+
+
+
 
 if __name__ == '__main__':
 	print(GetData())
