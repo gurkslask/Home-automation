@@ -55,7 +55,7 @@ class MainLoop():
 		self.Comment='This is the sensor that measures the water temperature to the solar panels'
 		self.Name='SUN_GT1'
 		# After solar panels
-		self.SUN_GT2 = DS1820('28-00000523ab8e')
+		self.SUN_GT2 = DS1820('28-0000052361be')
 		self.Comment='This is the sensor that measures the water temperature from the solar panels'
 		self.Name='VS1_GT2'
 
