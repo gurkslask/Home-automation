@@ -218,7 +218,7 @@ class MainLoop():
 
 
 	def CheckIfNewDay(self):
-		if self.datetime.day != datetime.today().day:
+		if self.datumtid.day != datetime.date.today().day:
 			#if a new day...
 			self.datumtid=datetime.date.today()
 
