@@ -106,12 +106,27 @@ class MainLoop():
 					#print('GT3 {0:.1f}'.format(VS1_GT3.RunMainTemp()))
 					
 					#Run the sensors
-					self.GT1.RunMainTemp()
-					self.VS1_GT2.RunMainTemp()
-					self.VS1_GT3.RunMainTemp()
-					self.SUN_GT1.RunMainTemp()
-					self.SUN_GT2.RunMainTemp()
-					
+					try:
+						self.GT1.RunMainTemp()
+					except Exception, e:
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+					try:
+						self.VS1_GT2.RunMainTemp()
+					except Exception, e:
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+					try:
+						self.VS1_GT3.RunMainTemp()
+					except Exception, e:
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+					try:
+						self.SUN_GT1.RunMainTemp()
+					except Exception, e:
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+					try:
+						self.SUN_GT2.RunMainTemp()
+					except Exception, e:
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+
 					#Calculate setpoint
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
 					self.Setpoint_Log_VS1.value = self.Setpoint_VS1
