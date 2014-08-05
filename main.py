@@ -109,23 +109,23 @@ class MainLoop():
 					try:
 						self.GT1.RunMainTemp()
 					except Exception, e:
-						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__class__, e=e)
 					try:
 						self.VS1_GT2.RunMainTemp()
 					except Exception, e:
-						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.VS1_GT2.__class__, e=e)
 					try:
 						self.VS1_GT3.RunMainTemp()
 					except Exception, e:
-						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.VS1_GT3.__class__, e=e)
 					try:
 						self.SUN_GT1.RunMainTemp()
 					except Exception, e:
-						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.SUN_GT1.__class__, e=e)
 					try:
 						self.SUN_GT2.RunMainTemp()
 					except Exception, e:
-						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.GT1.__name__, e=e)
+						print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.SUN_GT2.__class__, e=e)
 
 					#Calculate setpoint
 					self.Setpoint_VS1 = self.Komp.CountSP(self.VS1_GT3.temp)
