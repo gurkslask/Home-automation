@@ -46,13 +46,13 @@ class PID:
         self.prev_err = preverr
 
     def SetOutMax(self, Max):
-    	""" Set Max output, default 100.0 """
-    	self.OutMax = Max
+        """ Set Max output, default 100.0 """
+        self.OutMax = Max
 
     def SetOutMin§(self, Min):
-    	""" Set Min output, default 0.0 """
-    	self.OutMin = Min
-		
+        """ Set Min output, default 0.0 """
+        self.OutMin = Min
+
 
     def Initialize(self):
         # initialize delta t variables
