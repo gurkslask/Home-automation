@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request
+from flask import Flask, make_response, request, render_template
 
 
 app = Flask(__name__)
@@ -9,6 +9,13 @@ def shutdown_server():
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+
+@app.route('/bild')
+@app.route('/bild/<name>')
+def bild(name=None):
+    plot()
+    return render_template('hello.html', name=name)
+
 
 @app.route('/')
 def hello():
@@ -134,6 +141,65 @@ def shutdown():
 
 def Flaskrun():
     app.run(host='0.0.0.0')
+
+def plot():
+    import datetime as dt
+    import os
+    import time
+
+    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+    from matplotlib.figure import Figure
+    from matplotlib.dates import DateFormatter
+
+    #Some configuration for the matplot
+    fig=Figure(figsize=(12, 10))
+    ax=fig.add_subplot(111)
+
+    #Time initizilation
+    To = int(time.time())
+    From = To - 86400
+
+    #Go to the sensors directory
+    os.chdir('/home/alexander/prg/mpl/sensors')
+
+    #Loop throuch all the sensors
+    for i in os.listdir(os.getcwd()):
+
+        #some inits
+        dates = []
+        values = []
+        data_dict = {}
+        #Change directory to the current sensor
+        os.chdir(i)
+        #Make a list of the files in the given time spectra (86400) seconds back in time
+        file_list = [l for l in os.listdir(os.getcwd()) if To+86400 > int(l) > From-86400]
+        #Loop through those files
+        for j in file_list:
+            #Open the files
+            with open(j, 'r') as f:
+                #loop through the data
+                for k in f:
+                    #Split the time and data values
+                    split_list = k.split('|')
+                    #If the data is within the given time frame, add it to the dict, the first field is time, the second data
+                    if To > int(split_list[0]) > From:
+                        data_dict[split_list[0]]=split_list[1]
+
+        #Loop through the created dict
+        for key in sorted(data_dict.keys()):
+            #Append the lists, List concetation???????????????
+            dates.append(dt.datetime.fromtimestamp(int(key)))
+            values.append(data_dict[key])
+        #Some more configuration of the plot
+        ax.plot_date(dates, values, '-', label='aaa')
+        #Change the directory for next sensor
+        os.chdir('..')
+    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+    fig.autofmt_xdate()
+    #fig.legend(loc='upper left')
+    canvas=FigureCanvas(fig)
+    #png_output = StringIO.StringIO()
+    canvas.print_png('/home/alexander/prg/mpl')
 
 
  
