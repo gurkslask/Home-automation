@@ -46,7 +46,7 @@ def simple():
         #Change directory to the current sensor
         os.chdir(i)
         #Make a list of the files in the given time spectra (86400) seconds back in time
-        file_list = [l for l in os.listdir(os.getcwd()) if To+86400 > l > From-86400]
+        file_list = [l for l in os.listdir(os.getcwd()) if To+86400 > int(l) > From-86400]
         #Loop through those files
         for j in file_list:
             #Open the files
