@@ -160,7 +160,7 @@ def plot():
     From = To - 86400
 
     #Go to the sensors directory
-    os.chdir('/home/alexander/prg/mpl/sensors')
+    os.chdir('/home/pi/Projects/Home-automation/sensors')
 
     #Loop throuch all the sensors
     for i in os.listdir(os.getcwd()):
@@ -199,10 +199,10 @@ def plot():
     #fig.legend(loc='upper left')
     canvas=FigureCanvas(fig)
     #png_output = StringIO.StringIO()
-    canvas.print_png('/home/alexander/prg/mpl')
+    canvas.print_png('/home/pi/Projects/Home-automation/Flask/bild.png')
 
 
  
 if __name__ == "__main__":
-    #app.run(host='0.0.0.0', debug=True)
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', debug=True)
+    #app.run(host='0.0.0.0')
