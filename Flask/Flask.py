@@ -199,7 +199,7 @@ def plot():
     #fig.legend(loc='upper left')
     canvas=FigureCanvas(fig)
     #png_output = StringIO.StringIO()
-    canvas.print_png('/home/pi/Projects/Home-automation/Flask/bild.png')
+    canvas.print_png('/home/pi/Projects/Home-automation/Flask/templates/bild.png')
 
 
  
