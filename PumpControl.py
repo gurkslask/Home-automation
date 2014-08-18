@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 import time
+import pickle
 
 
 class PumpControl(object):
@@ -42,6 +43,15 @@ class PumpControl(object):
     def NewDay(self):
         #move today to yesterday and reset today, DONT FORGET TO PUT THIS IN CHECKIFNEWDAY METHOD IN MAIN
         self.S2, self.S1 = self.S1, 0
+
+
+    def pickla(self):
+        with open(''.join(['/pickles/', self.__class__, 'wb'])) as p:
+            pickle.dump(self.__dict__, p, 2)
+
+    def unpickla(self):
+        with open(''.join(['/pickles/', self.__class__, 'wb'])) as p:
+            self.__dict__ = pickle.load(p)
 
 def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temperature):
 

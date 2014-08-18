@@ -10,7 +10,7 @@ from flask import Flask, make_response
 from scraping import GetData
 from PumpControl import PumpControl, Control_of_CP2
 from ModBus import runModBus
-
+import pickle
 import time
 import threading
 import datetime
@@ -143,9 +143,6 @@ class MainLoop():
                     except Exception, e:
                         raise e
                         print('Something went wrong with the modbus!')
-
-                    #print('Loop 1')
-
 
                 if self.ActTimeLoop2 +5< time.time():
                     #5seconds loop
