@@ -16,6 +16,9 @@ def bild(name=None):
     plot()
     return render_template('hello.html', name=name)
 
+@app.route('/bild2')
+def bild2():
+    return render_template('hello.html')
 
 @app.route('/')
 def hello():

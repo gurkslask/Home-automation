@@ -23,6 +23,10 @@ class PumpControl(object):
         self.T1 = 0#today
         self.T2 = 0#yesterday
         self.T3 = 0#total
+        try:
+            self.unpickla()
+        except Exception, e:
+            print('unpickla went wrong' +str(e))
     def main(self, DI):
         if self.Man and not self.Out:
             self.Out = True
@@ -39,6 +43,11 @@ class PumpControl(object):
         else:
             self.Larm = False
 
+        try:
+            self.pickla()
+        except Exception, e:
+            print('pickla went wrong' + str(e))
+
 
     def NewDay(self):
         #move today to yesterday and reset today, DONT FORGET TO PUT THIS IN CHECKIFNEWDAY METHOD IN MAIN
@@ -46,11 +55,11 @@ class PumpControl(object):
 
 
     def pickla(self):
-        with open(''.join(['/pickles/', self.__class__, 'wb'])) as p:
+        with open(''.join(['pickles/', self.Name]), 'wb+') as p:
             pickle.dump(self.__dict__, p, 2)
 
     def unpickla(self):
-        with open(''.join(['/pickles/', self.__class__, 'wb'])) as p:
+        with open('/pickles/' + self.Name , 'rb') as p:
             self.__dict__ = pickle.load(p)
 
 def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temperature):
