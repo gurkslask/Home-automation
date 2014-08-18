@@ -8,7 +8,7 @@ import pickle
 class PumpControl(object):
     '''The default PumpControl class'''
 
-    def __init__(self):
+    def __init__(self, name=''):
         #The delay for alarms
         self.LarmDelay = 15
         #Set this from the program to make the pump go if in auto
@@ -16,7 +16,7 @@ class PumpControl(object):
         #Tie this signal to the actual output
         self.Out = False
         self.Comment = ''
-        self.Name = ''
+        self.Name = name
         self.S1 = 0#today
         self.S2 = 0#yesterday
         self.S3 = 0#total
@@ -59,7 +59,7 @@ class PumpControl(object):
             pickle.dump(self.__dict__, p, 2)
 
     def unpickla(self):
-        with open('/pickles/' + self.Name , 'rb') as p:
+        with open(''.join(['pickles/', self.Name]), 'rb') as p:
             self.__dict__ = pickle.load(p)
 
 def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temperature):
@@ -72,7 +72,8 @@ def Control_of_CP2(Weather, Out_temperature, Tank_temperature, Sun_heater_temper
         'Partly cloudy' : 6, # Partly cloudy - 50 50
         'Clear sky' : 4, # Clear sky - soligt
         'Rain' : 7, # Rain - regn
-        'None' : 7 # No info
+        'None' : 7, # No info
+        'Light rain' : 7 
     }
 
     try:

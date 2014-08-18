@@ -77,9 +77,9 @@ class MainLoop():
         self.ActTimeLoop3 = time.time() - 14400
 
         #Declare Cirkulation pump sun heaters
-        self.VS1_CP2_Class = PumpControl()
+        self.VS1_CP2_Class = PumpControl('SUN_P1')
         self.VS1_CP2_Class.Comment='This is the pump that pumps water up to the sun heaters'
-        self.VS1_CP2_Class.Name='SUN_P1'
+        #self.VS1_CP2_Class.Name='SUN_P1'
 
         #Interaction menu
         self.choices = {
