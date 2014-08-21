@@ -1,10 +1,6 @@
 <!doctype html>
 <title>Hello from Flask</title>
-
-<img src="../bild.png"></img>
-<img src="bild.png"></img>
-<img src="/home/pi/Projects/Home-automation/Flask/bild.png"></img>
-<img src="/home/pi/Projects/Home-automation/Flask/templates/bild.png"></img>
+<img src=" {{ url_for('static', filename = 'bild.png') }} ">
 
 {% if name %}
   <h1>Hello {{ name }}!</h1>
