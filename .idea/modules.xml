@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/prg/Flask-demo/.idea/Flask-demo.iml" filepath="$USER_HOME$/prg/Flask-demo/.idea/Flask-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Home-automation.iml" filepath="$PROJECT_DIR$/.idea/Home-automation.iml" />
     </modules>
   </component>

@@ -11,10 +11,10 @@ def shutdown_server():
     func()
 
 @app.route('/bild')
-@app.route('/bild/<name>')
-def bild(name=None):
-    plot()
-    return render_template('hello.html', name=name)
+@app.route('/bild/<range>')
+def bild(range = 24):
+    plot(range)
+    return render_template('hello.html')
 
 @app.route('/bild2')
 def bild2():
@@ -145,7 +145,7 @@ def shutdown():
 def Flaskrun():
     app.run(host='0.0.0.0')
 
-def plot():
+def plot(plot_range=24):
     import datetime as dt
     import os
     import time
@@ -154,13 +154,16 @@ def plot():
     from matplotlib.figure import Figure
     from matplotlib.dates import DateFormatter
 
+    #plot range hours => seconds
+    plot_range = plot_range * 3600
+
     #Some configuration for the matplot
     fig=Figure(figsize=(12, 10))
     ax=fig.add_subplot(111)
 
     #Time initizilation
     To = int(time.time())
-    From = To - 86400
+    From = To - plot_range
 
     #Go to the sensors directory
     os.chdir('/home/pi/Projects/Home-automation/sensors')
@@ -175,7 +178,7 @@ def plot():
         #Change directory to the current sensor
         os.chdir(i)
         #Make a list of the files in the given time spectra (86400) seconds back in time
-        file_list = [l for l in os.listdir(os.getcwd()) if To+86400 > int(l) > From-86400]
+        file_list = [l for l in os.listdir(os.getcwd()) if To+plot_range > int(l) > From-plot_range]
         #Loop through those files
         for j in file_list:
             #Open the files
