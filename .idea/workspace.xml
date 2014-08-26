@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6e152039-f692-4b2f-a2b7-6e7f279cd41e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Flask/Flask.py" afterPath="$PROJECT_DIR$/Flask/Flask.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Home-automation.iml" afterPath="$PROJECT_DIR$/.idea/Home-automation.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="6e152039-f692-4b2f-a2b7-6e7f279cd41e" name="Default" comment="" />
     <ignored path="Home-automation.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
