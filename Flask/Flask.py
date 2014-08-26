@@ -149,7 +149,7 @@ def Flaskrun():
     app.run(host='0.0.0.0')
 
 
-def plot(plot_range=24):
+def plot(plot_range=72):
     import datetime as dt
     import os
     import time
