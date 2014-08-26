@@ -1,5 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+
+
 class Kompensering:
     '''Kompensering är en klass som används
     för utekompensering. Man får sätta lite olika
@@ -32,32 +34,38 @@ class Kompensering:
     def MinMax(self, Value):
         """MinMax returns a value between the set min and max values"""
         return max(self.Min, min(self.Max, Value))
-    
+
     def CountSP(self, PV):
         """Calculate the actual setpoint based on the provided values and the
         actual outsidetemperature"""
-        self.SortedList = sorted(self.DictVarden.keys())    #Sort values
-        self.IterValue=0
-        for i in sorted(self.DictVarden.keys()):            #Loop through outtemperature
-            if i > PV:  #Find nearest upper value
-                self.UpperValueKomp = i 
-                self.LowValueKomp = self.SortedList[self.IterValue-1]#take neares value under
-                break#finish
+        #Sort values
+
+        self.SortedList = sorted(self.DictVarden.keys())
+        self.IterValue = 0
+        #Loop through outtemperature
+        for i in sorted(self.DictVarden.keys()):
+            #Find nearest upper value
+            if i > PV:
+                self.UpperValueKomp = i
+                #take neares value under
+                self.LowValueKomp = self.SortedList[self.IterValue-1]
+                #finish
+                break
             self.IterValue += 1
             if self.IterValue == len(self.DictVarden):
                 return self.MinMax(self.DictVarden[self.SortedList[-1]])
         if self.UpperValueKomp == self.LowValueKomp:
-            return self.MinMax(self.DictVarden[self.UpperValueKomp])#if they are equal, assume the bottom was reached
+            #if they are equal, assume the bottom was reached
+            return self.MinMax(self.DictVarden[self.UpperValueKomp])
         self.y2 = self.DictVarden[self.UpperValueKomp]
         self.y1 = self.DictVarden[self.LowValueKomp]
         self.x2 = self.UpperValueKomp
         self.x1 = self.LowValueKomp
-        self.k =  (self.y2 - self.y1) / (self.x2 - self.x1)#straight line equation
-        self.m =  self.y1 - (self.x1 * self.k)
+        #straight line equation
+        self.k = (self.y2 - self.y1) / (self.x2 - self.x1)
+        self.m = self.y1 - (self.x1 * self.k)
         self.SP = (PV * self.k) + self.m
         return self.MinMax(self.SP)
-    
-
 
 
 Komp = Kompensering()
@@ -70,5 +78,3 @@ Komp.SetMax(65)
 Komp.SetMin(20)
 print(Komp.CountSP(-52))
 print(Komp.CountSP(152))
-
-

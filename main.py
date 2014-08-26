@@ -5,16 +5,12 @@ from ds1820class import Write_temp
 from Kompensering import Kompensering
 from OpenCloseValveClass import OpenCloseValve
 from IOdef import IOdef
-from Flask.Flask import simple, hello, Flaskrun, shutdown_server
-from flask import Flask, make_response
 from scraping import GetData
 from PumpControl import PumpControl, Control_of_CP2
 from ModBus import runModBus
-import pickle
 import time
 import threading
 import datetime
-
 
 
 class MainLoop():
@@ -35,30 +31,29 @@ class MainLoop():
 
         #Loggin of the compensation
         self.Setpoint_VS1 = 0.0
-        self.Setpoint_Log_VS1 = Write_temp(self.Setpoint_VS1,'VS1_Setpoint')
+        self.Setpoint_Log_VS1 = Write_temp(self.Setpoint_VS1, 'VS1_Setpoint')
 
         #Declare temperature sensors
         #Framledning
         self.GT1 = DS1820('28-00000523a1cb')
-        self.Comment='This is the sensor that measures the water temperature to the radiators'
-        self.Name='VS1_GT1'
+        self.Comment = 'This is the sensor that measures the water temperature to the radiators'
+        self.Name = 'VS1_GT1'
         #Retur
         self.VS1_GT2 = DS1820('28-00000524056e')
-        self.Comment='This is the sensor that measures the water temperature from the radiators'
-        self.Name='VS1_GT2'
+        self.Comment = 'This is the sensor that measures the water temperature from the radiators'
+        self.Name = 'VS1_GT2'
         #Ute
         self.VS1_GT3 = DS1820('28-0000052407e0')
-        self.Comment='This is the sensor that measures the outdoor temperature'
-        self.Name='VS1_GT3'
+        self.Comment = 'This is the sensor that measures the outdoor temperature'
+        self.Name = 'VS1_GT3'
         #@Solar panels
         self.SUN_GT1 = DS1820('28-00000523ab8e')
-        self.Comment='This is the sensor that measures the water temperature to the solar panels'
-        self.Name='SUN_GT1'
+        self.Comment = 'This is the sensor that measures the water temperature to the solar panels'
+        self.Name = 'SUN_GT1'
         # After solar panels
         self.SUN_GT2 = DS1820('28-0000052361be')
-        self.Comment='This is the sensor that measures the water temperature from the solar panels'
-        self.Name='VS1_GT2'
-
+        self.Comment = 'This is the sensor that measures the water temperature from the solar panels'
+        self.Name = 'VS1_GT2'
 
         #Declare logging interval
         self.GT1.SetWriteInterval(60)
@@ -78,21 +73,21 @@ class MainLoop():
 
         #Declare Cirkulation pump sun heaters
         self.VS1_CP2_Class = PumpControl('SUN_P1')
-        self.VS1_CP2_Class.Comment='This is the pump that pumps water up to the sun heaters'
+        self.VS1_CP2_Class.Comment = 'This is the pump that pumps water up to the sun heaters'
         #self.VS1_CP2_Class.Name='SUN_P1'
 
         #Interaction menu
         self.choices = {
-                    "1" : self.ChangeSP,
-                    "2" : self.ShowValues,
-                    "3" : self.ShowWeather,
-                    "4" : self.ToggleOut,
-                    "0" : self.exit
-                }
+                    "1": self.ChangeSP,
+                    "2": self.ShowValues,
+                    "3": self.ShowWeather,
+                    "4": self.ToggleOut,
+                    "0": self.exit
+                        }
 
-        self.Weather_State=''
-        self.exit_flag=False
-        self.datumtid=datetime.date.today()
+        self.Weather_State = ''
+        self.exit_flag = False
+        self.datumtid = datetime.date.today()
 
     def ControlLoop(self):
             while not self.exit_flag:
@@ -184,7 +179,7 @@ class MainLoop():
                 4. Toggle test bit
                 0. Exit
                 """)
-            choice=raw_input('Enter an option: ')
+            choice = raw_input('Enter an option: ')
             action = self.choices.get(choice)
             if action:
                 action()

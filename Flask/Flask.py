@@ -159,7 +159,7 @@ def plot(plot_range=24):
     from matplotlib.dates import DateFormatter
 
     #plot range hours => seconds
-    plot_range = plot_range * 3600
+    plot_range = int(plot_range) * 3600
 
     #Some configuration for the matplot
     fig = Figure(figsize=(12, 10))
@@ -167,7 +167,7 @@ def plot(plot_range=24):
 
     #Time initizilation
     To = int(time.time())
-    From = To - plot_range
+    From = To - int(plot_range)
 
     #Go to the sensors directory
     os.chdir('/home/pi/Projects/Home-automation/sensors')
