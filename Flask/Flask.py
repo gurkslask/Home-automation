@@ -149,7 +149,7 @@ def Flaskrun():
     app.run(host='0.0.0.0')
 
 
-def plot(plot_range=24):
+def plot(plot_range=72):
     import datetime as dt
     import os
     import time
@@ -159,7 +159,7 @@ def plot(plot_range=24):
     from matplotlib.dates import DateFormatter
 
     #plot range hours => seconds
-    plot_range = plot_range * 3600
+    plot_range = int(plot_range) * 3600
 
     #Some configuration for the matplot
     fig = Figure(figsize=(12, 10))
