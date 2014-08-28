@@ -1,4 +1,5 @@
 from flask import Flask, make_response, request, render_template
+import pickle
 
 
 app = Flask(__name__)
@@ -26,6 +27,19 @@ def bild2():
 @app.route('/')
 def hello():
     return 'hello world'
+
+
+@app.route('/interact')
+def interact():
+    shared_dict = load_shared_dict()
+    render_template('interact.html', shared_dict=shared_dict)
+
+
+def load_shared_dict():
+    '''loads the shared dict'''
+    with open('shared_dict', 'rb') as f:
+        return pickle.load(f)
+
 
 
 @app.route("/simple.png")
