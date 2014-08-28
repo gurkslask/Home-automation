@@ -1,7 +1,9 @@
-from flask import Flask, make_response, request, render_template
+from flask import Flask, make_response, render_template
 import pickle
 from flask.ext.bootstrap import Bootstrap
-
+from flask.ext.wtf import Form
+from wtforms import StringField, SubmitField
+from wtforms.validators import Required
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '73ng89rgdsn32qywxaz'
@@ -18,10 +20,25 @@ def bild(range=48):
 def hello():
     return 'hello world'
 
+class NameForm(Form):
+    """docstring for NameForm"""
+    ute_temp = StringField('Utetemperatur', validators=[Required()])
+    fram_temp = StringField('Framledningstemperatur', validators=[Required()])
+    submit = SubmitField('Submit')
 
-@app.route('/interact')
+@app.route('/interact', methods=['GET', 'POST'])
 def interact():
+    ute_temp = None
+    fram_temp = None
+    ute_temp_form = NameForm()
+    if ute_temp_form.validate_on_submit():
+        ute_temp = ute_temp_form.ute_temp.data
+        ute_temp_form.ute_temp.data = ''
+        fram_temp = ute_temp_form.fram_temp.data
+        ute_temp_form.fram_temp.data = ''
+
     shared_dict = load_shared_dict()
+    shared_dict[ute_temp] = fram_temp
     return render_template('interact.html', shared_dict=shared_dict)
 
 def load_shared_dict():
