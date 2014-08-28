@@ -5,22 +5,10 @@ import pickle
 app = Flask(__name__)
 
 
-def shutdown_server():
-    func = request.environ.get('werkzeug.server.shutdown')
-    if func is None:
-        raise RuntimeError('Not running with the Werkzeug Server')
-    func()
-
-
 @app.route('/bild')
 @app.route('/bild/<range>')
 def bild(range=48):
     plot(range)
-    return render_template('hello.html')
-
-
-@app.route('/bild2')
-def bild2():
     return render_template('hello.html')
 
 
@@ -32,8 +20,7 @@ def hello():
 @app.route('/interact')
 def interact():
     shared_dict = load_shared_dict()
-    render_template('interact.html', shared_dict=shared_dict)
-
+    return render_template('interact.html', shared_dict=shared_dict)
 
 def load_shared_dict():
     '''loads the shared dict'''
@@ -107,62 +94,6 @@ def simple():
     return response
 
 
-@app.route("/simple96.png")
-def simple96():
-    import datetime as dt
-    import StringIO
-    import os
-    import time
-
-    from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-    from matplotlib.figure import Figure
-    from matplotlib.dates import DateFormatter
-
-    fig = Figure(figsize=(12, 10))
-    ax = fig.add_subplot(111)
-    To = time.time()
-    From = To - 345600
-    os.chdir('/home/pi/Projects/Home-automation/sensors')
-    for i in os.listdir(os.getcwd()):
-        dates = []
-        values = []
-        data_dict = {}
-        os.chdir(i)
-        file_list = [l for l in os.listdir(os.getcwd()) if int(To)+345600  > int(l) > int(From)-345600]
-        #print(file_list)
-        for j in file_list:
-            with open(j, 'r') as f:
-                for k in f:
-                    split_list = k.split('|')
-                    if To > int(split_list[0]) > From:
-                        data_dict[split_list[0]] = split_list[1]
-
-        for key in sorted(data_dict.keys()):
-            dates.append(dt.datetime.fromtimestamp(int(key)))
-            values.append(data_dict[key])
-        ax.plot_date(dates, values, '-', label='aaa')
-        os.chdir('..')
-    ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
-    fig.autofmt_xdate()
-    #fig.legend(loc='upper left')
-    canvas = FigureCanvas(fig)
-    png_output = StringIO.StringIO()
-    canvas.print_png(png_output)
-    response = make_response(png_output.getvalue())
-    response.headers['Content-Type'] = 'image/png'
-    return response
-
-
-@app.route('/shutdown', methods=['POST'])
-def shutdown():
-    shutdown_server()
-    return 'Server shutting down...'
-
-
-def Flaskrun():
-    app.run(host='0.0.0.0')
-
-
 def plot(plot_range=72):
     import datetime as dt
     import os
@@ -227,5 +158,5 @@ def plot(plot_range=72):
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', debug=True)
-    #app.run(host='0.0.0.0')
+    #app.run(host='0.0.0.0', debug=True)
+    app.run(host='0.0.0.0')
