@@ -238,12 +238,14 @@ class MainLoop():
             #if a new day...
             self.datumtid=datetime.date.today()
 
-    def InteractWithFlask(choice):
+    def InteractWithFlask(self, choice):
         '''Dump shared_dict to a pickle, or load it'''
         if choice:
-            pickle.dump(self.shared_dict, 'Flask/shared_dict')
+            with open('Flask/shared_dict', 'wb+') as f:
+                pickle.dump(self.shared_dict, f)
         elif not choice:
-            self.shared_dict.update(pickle.load('Flask/shared_dict'))
+            with open('Flask/shared_dict', 'rb') as f:
+                self.shared_dict.update(pickle.load(f))
 
 
 
