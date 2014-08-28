@@ -68,13 +68,18 @@ class Kompensering:
         return self.MinMax(self.SP)
 
 
-Komp = Kompensering()
-Komp.SetVarden(20, 17)
-Komp.SetVarden(-10, 60)
-Komp.SetVarden(0, 55)
-Komp.SetVarden(10, 30)
-Komp.SetVarden(-20, 65)
-Komp.SetMax(65)
-Komp.SetMin(20)
-print(Komp.CountSP(-52))
-print(Komp.CountSP(152))
+def main():
+    Komp = Kompensering()
+    Komp.SetVarden(20, 17)
+    Komp.SetVarden(-10, 60)
+    Komp.SetVarden(0, 55)
+    Komp.SetVarden(10, 30)
+    Komp.SetVarden(-20, 65)
+    Komp.SetMax(65)
+    Komp.SetMin(20)
+    print(Komp.CountSP(-52))
+    print(Komp.CountSP(152))
+
+
+if __name__ == '__main__':
+    main()

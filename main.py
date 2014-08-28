@@ -10,6 +10,7 @@ from PumpControl import PumpControl, Control_of_CP2
 from ModBus import runModBus
 import time
 import threading
+import pickle
 import datetime
 
 
@@ -89,10 +90,15 @@ class MainLoop():
         self.exit_flag = False
         self.datumtid = datetime.date.today()
 
+
+        #Declare Flask shared dictionary
+        self.shared_dict = {'komp': self.Komp.DictVarden}
+        self.choice = False
+
     def ControlLoop(self):
             while not self.exit_flag:
                 '''This is the main loop'''
-                if self.ActTimeLoop1 +20< time.time():
+                if self.ActTimeLoop1 + 20 < time.time():
                     #20 seconds loop
                     self.ActTimeLoop1 = time.time()
 
@@ -156,6 +162,9 @@ class MainLoop():
                     self.IOVariables['b_P2_DO']['Value']= self.VS1_CP2_Class.Out
 
                     self.CheckIfNewDay()
+
+                    self.choice = not self.choice
+                    self.InteractWithFlask(self.choice)
 
                     #print('Loop 2')
 
@@ -228,6 +237,14 @@ class MainLoop():
         if self.datumtid.day != datetime.date.today().day:
             #if a new day...
             self.datumtid=datetime.date.today()
+
+    def InteractWithFlask(choice):
+        '''Dump shared_dict to a pickle, or load it'''
+        if choice:
+            pickle.dump(self.shared_dict, 'Flask/shared_dict')
+        elif not choice:
+            self.shared_dict.update(pickle.load('Flask/shared_dict'))
+
 
 
     #def FlaskLoop(self):
