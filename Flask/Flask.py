@@ -1,9 +1,11 @@
 from flask import Flask, make_response, request, render_template
 import pickle
+from flask.ext.bootstrap import Bootstrap
 
 
 app = Flask(__name__)
-
+app.config['SECRET_KEY'] = '73ng89rgdsn32qywxaz'
+bootstrap = Bootstrap(app)
 
 @app.route('/bild')
 @app.route('/bild/<range>')
