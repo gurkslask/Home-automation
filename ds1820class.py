@@ -99,7 +99,32 @@ class Write_temp():
             outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')
 
 
-def DegreeDays():
+class DegreeDays(object):
+    """docstring for ClassName
+    This class shall store todays temperature, one log per minute 
+    and then calculate the median and then calculate the amount of 
+    DegreeDays
+
+
+    """
+    def __init__(self, temp):
+        self.TodaysTemp = temp
+        self.temp_dict = {
+            1: 17,
+            2: 17,
+            3: 17,
+            4: 12,
+            5: 10,
+            6: 10,
+            7: 10,
+            8: 11,
+            9: 12,
+            10: 13,
+            11: 17,
+            12: 17,
+        }
+
+          DegreeDays():
     ''' A function that once a day calculate the median temperature of today and the amount
     of DegreeDays returned are the "17 - median temperature" '''
     # MedianTemperature =
