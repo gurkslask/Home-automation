@@ -124,7 +124,7 @@ class DegreeDays(object):
             12: 17,
         }
 
-          DegreeDays():
+def DegreeDays():
     ''' A function that once a day calculate the median temperature of today and the amount
     of DegreeDays returned are the "17 - median temperature" '''
     # MedianTemperature =
