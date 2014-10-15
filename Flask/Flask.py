@@ -14,10 +14,8 @@ bootstrap = Bootstrap(app)
 @app.route('/bild')
 @app.route('/bild/<range>')
 def bild(range=48):
-    tid = time.time
     plot(range)
     return render_template('hello.html')
-    print('It took {} sec to render page'.format(time.time() - tid))
 
 
 @app.route('/')
@@ -127,6 +125,7 @@ def plot(plot_range=72):
     from matplotlib.figure import Figure
     from matplotlib.dates import DateFormatter
 
+    tid = time.time()
     #plot range hours => seconds
     plot_range = int(plot_range) * 3600
 
@@ -178,6 +177,7 @@ def plot(plot_range=72):
     #fig.legend(loc='upper left')
     canvas = FigureCanvas(fig)
     #png_output = StringIO.StringIO()
+    print('It took ' + str(time.time() - tid) + 'sec to render page')
     canvas.print_png('/home/pi/Projects/Home-automation/Flask/static/bild.png')
 
 
