@@ -17,25 +17,24 @@ class PumpControl(object):
         self.Out = False
         self.Comment = ''
         self.Name = name
-        self.S1 = 0#today
-        self.S2 = 0#yesterday
-        self.S3 = 0#total
-        self.T1 = 0#today
-        self.T2 = 0#yesterday
-        self.T3 = 0#total
+        self.S1 = 0  #today
+        self.S2 = 0  #yesterday
+        self.S3 = 0  #total
+        self.T1 = 0  #today
+        self.T2 = 0  #yesterday
+        self.T3 = 0  #total
         try:
             self.unpickla()
         except Exception, e:
-            print('unpickla went wrong' +str(e))
+            print('unpickla went wrong' + str(e))
+
     def main(self, DI):
         if self.Man and not self.Out:
             self.Out = True
-            print('Pump out went True')
             self.S1 += 1
             self.S3 += 1
 
         elif not self.Man and self.Out:
-            print('Pump out went False')
             self.Out = False
 
         if DI != self.Out:
@@ -48,11 +47,9 @@ class PumpControl(object):
         except Exception, e:
             print('pickla went wrong' + str(e))
 
-
     def NewDay(self):
         #move today to yesterday and reset today, DONT FORGET TO PUT THIS IN CHECKIFNEWDAY METHOD IN MAIN
         self.S2, self.S1 = self.S1, 0
-
 
     def pickla(self):
         with open(''.join(['pickles/', self.Name]), 'wb+') as p:

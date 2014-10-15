@@ -71,6 +71,7 @@ class MainLoop():
         self.ActTimeLoop1 = time.time()
         self.ActTimeLoop2 = time.time()
         self.ActTimeLoop3 = time.time() - 14400
+        self.ActTimeLoop4 = time.time()
 
         #Declare Cirkulation pump sun heaters
         self.VS1_CP2_Class = PumpControl('SUN_P1')
@@ -85,7 +86,7 @@ class MainLoop():
                     "4": self.ToggleOut,
                     "0": self.exit
                         }
-
+        #Declare variebles
         self.Weather_State = ''
         self.exit_flag = False
         self.datumtid = datetime.date.today()
@@ -100,6 +101,7 @@ class MainLoop():
                 '''This is the main loop'''
                 if self.ActTimeLoop1 + 20 < time.time():
                     #20 seconds loop
+                    #Reset time for next loop
                     self.ActTimeLoop1 = time.time()
 
                     #print('GT1 {0:.1f}'.format(GT1.RunMainTemp()))
@@ -135,31 +137,29 @@ class MainLoop():
                     self.Setpoint_Log_VS1.main()
 
                     #Run valve check
-                    self.VS1_SV1_Class.main(self.GT1.temp , self.Setpoint_VS1)
+                    self.VS1_SV1_Class.main(self.GT1.temp, self.Setpoint_VS1)
+                    #Run logging of the state of the valve
                     self.VS1_SV1_Open_Trend_Class.main()
                     self.VS1_SV1_Close_Trend_Class.main()
 
+                    #Run modbus communication
                     try:
                         runModBus(self.IOVariables)
                     except Exception, e:
                         raise e
                         print('Something went wrong with the modbus!')
 
-                if self.ActTimeLoop2 +5< time.time():
+                if self.ActTimeLoop2 + 5 < time.time():
                     #5seconds loop
                     self.ActTimeLoop2 = time.time()
 
-                    #Run control of the valve
-                    self.VS1_SV1_Class.control()
-                    self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close_OUT
-                    self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
 
                     #Run check if the sun warm pump should go
                     self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, self.SUN_GT2.temp, self.SUN_GT1.temp)
 
                     #Run control of sun warming pump
                     self.VS1_CP2_Class.main(0)
-                    self.IOVariables['b_P2_DO']['Value']= self.VS1_CP2_Class.Out
+                    self.IOVariables['b_P2_DO']['Value'] = self.VS1_CP2_Class.Out
 
                     self.CheckIfNewDay()
 
@@ -168,15 +168,22 @@ class MainLoop():
 
                     #print('Loop 2')
 
-                if self.ActTimeLoop3 +14400< time.time():
+                if self.ActTimeLoop3 + 14400 < time.time():
                     #4 hour loop
                     self.ActTimeLoop3 = time.time()
 
-                    self.Weather_State=GetData()
+                    self.Weather_State = GetData()
 
-                time.sleep(4)
+                if self.ActTimeLoop4 + 1 < time.time():
+                    '''Run ControlLoop once a second
+                    '''
+                    #Run control of the valve
+                    self.VS1_SV1_Class.control()
+                    self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close_OUT
+                    self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
 
 
+                time.sleep(1)
 
     def InteractionLoop(self):
         while not self.exit_flag:
@@ -205,7 +212,7 @@ class MainLoop():
         value1 = input('Enter outside temperature: ')
         value2 = input('Enter forward temperature: ')
         try:
-            self.Komp.DictVarden[int(value1)] =int(value2)
+            self.Komp.DictVarden[int(value1)] = int(value2)
         except:
             print('Invalid values entered')
 
@@ -216,6 +223,7 @@ class MainLoop():
         print('Solpanel - GT1 - uppe {0:.1f}'.format(self.SUN_GT1.temp))
         print('Solpanel - GT2 - nere {0:.1f}'.format(self.SUN_GT2.temp))
         print('SP {0:.1f}'.format(self.Setpoint_VS1))
+
     def ShowWeather(self):
         print(self.Weather_State)
 
@@ -232,11 +240,10 @@ class MainLoop():
         time.sleep(5)
         raise SystemExit
 
-
     def CheckIfNewDay(self):
         if self.datumtid.day != datetime.date.today().day:
             #if a new day...
-            self.datumtid=datetime.date.today()
+            self.datumtid = datetime.date.today()
 
     def InteractWithFlask(self, choice):
         '''Dump shared_dict to a pickle, or load it'''
@@ -248,15 +255,6 @@ class MainLoop():
                 self.shared_dict.update(pickle.load(f))
 
 
-
-    #def FlaskLoop(self):
-        #Flaskrun()
-
-
-
-
-
-
 def main():
     ML = MainLoop()
     #threading.Thread(target=ML.FlaskLoop).start()
@@ -266,7 +264,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
-
-
