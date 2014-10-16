@@ -48,9 +48,9 @@ class MainLoop():
         self.VS1_GT3.Comment = 'This is the sensor that measures the outdoor temperature'
         self.VS1_GT3.Name = 'VS1_GT3'
         #@Solar panels
-        self.SUN_GT1 = DS1820('28-00000523ab8e')
-        self.SUN_GT1.Comment = 'This is the sensor that measures the water temperature to the solar panels'
-        self.SUN_GT1.Name = 'SUN_GT1'
+        #self.SUN_GT1 = DS1820('28-00000523ab8e')
+        #self.SUN_GT1.Comment = 'This is the sensor that measures the water temperature to the solar panels'
+        #self.SUN_GT1.Name = 'SUN_GT1'
         # After solar panels
         self.SUN_GT2 = DS1820('28-0000052361be')
         self.SUN_GT2.Comment = 'This is the sensor that measures the water temperature from the solar panels'
@@ -60,7 +60,7 @@ class MainLoop():
         self.GT1.SetWriteInterval(60)
         self.VS1_GT2.SetWriteInterval(60)
         self.VS1_GT3.SetWriteInterval(60)
-        self.SUN_GT1.SetWriteInterval(60)
+        #self.SUN_GT1.SetWriteInterval(60)
         self.SUN_GT2.SetWriteInterval(60)
 
         #Declare Heating valve
@@ -128,10 +128,10 @@ class MainLoop():
                         self.VS1_GT3.RunMainTemp()
                     except Exception, e:
                         print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.VS1_GT3.__class__, e=e)
-                    try:
-                        self.SUN_GT1.RunMainTemp()
-                    except Exception, e:
-                        print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.SUN_GT1.__class__, e=e)
+                    #try:
+                        #self.SUN_GT1.RunMainTemp()
+                    #except Exception, e:
+                        #print('Something went wrong time: {time} with {name}... {e}').format(time=time.time(), name=self.SUN_GT1.__class__, e=e)
                     try:
                         self.SUN_GT2.RunMainTemp()
                     except Exception, e:
@@ -162,7 +162,7 @@ class MainLoop():
 
 
                     #Run check if the sun warm pump should go
-                    self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, self.SUN_GT2.temp, self.SUN_GT1.temp)
+                    #self.VS1_CP2_Class.Man = Control_of_CP2(self.Weather_State, self.VS1_GT3.temp, self.SUN_GT2.temp, self.SUN_GT1.temp)
 
                     #Run control of sun warming pump
                     self.VS1_CP2_Class.main(0)
@@ -242,7 +242,7 @@ class MainLoop():
         print('GT1 {0:.1f}'.format(self.GT1.temp))
         print('GT2 {0:.1f}'.format(self.VS1_GT2.temp))
         print('GT3 {0:.1f}'.format(self.VS1_GT3.temp))
-        print('Solpanel - GT1 - uppe {0:.1f}'.format(self.SUN_GT1.temp))
+        #print('Solpanel - GT1 - uppe {0:.1f}'.format(self.SUN_GT1.temp))
         print('Solpanel - GT2 - nere {0:.1f}'.format(self.SUN_GT2.temp))
         print('SP {0:.1f}'.format(self.Setpoint_VS1))
 
