@@ -62,6 +62,7 @@ class MainLoop():
         self.VS1_GT3.SetWriteInterval(60)
         self.SUN_GT1.SetWriteInterval(60)
         self.SUN_GT2.SetWriteInterval(60)
+
         #Declare Heating valve
         self.VS1_SV1_Class = OpenCloseValve()
         self.VS1_SV1_Open_Trend_Class = Write_temp(self.IOVariables['b_SV_OPEN_DO']['Value'] * 10, 'b_SV_OPEN_DO')
@@ -72,11 +73,16 @@ class MainLoop():
         self.ActTimeLoop2 = time.time()
         self.ActTimeLoop3 = time.time() - 14400
         self.ActTimeLoop4 = time.time()
+        self.ActTimeLoop5 = time.time()
 
         #Declare Cirkulation pump sun heaters
         self.VS1_CP2_Class = PumpControl('SUN_P1')
         self.VS1_CP2_Class.Comment = 'This is the pump that pumps water up to the sun heaters'
         #self.VS1_CP2_Class.Name='SUN_P1'
+
+        #Declare Circualation pump for radiators in the house
+        self.VS1_CP1_Class = PumpControl('VS1_CP1')
+        self.VS1_CP1_Class.Comment = ('This is the pump that supplies the heating radiators with hot water')
 
         #Interaction menu
         self.choices = {
@@ -90,6 +96,7 @@ class MainLoop():
         self.Weather_State = ''
         self.exit_flag = False
         self.datumtid = datetime.date.today()
+        self.ThreeDayTemp = 9.0
 
 
         #Declare Flask shared dictionary
@@ -161,6 +168,13 @@ class MainLoop():
                     self.VS1_CP2_Class.main(0)
                     self.IOVariables['b_P2_DO']['Value'] = self.VS1_CP2_Class.Out
 
+                    #Run check if the radiator pump should go, if out temperature is under 10 degrees
+                    self.VS1_CP1_Class.Man = self.ThreeDayTemp < 10.0
+
+                    #Run control of sun warming pump
+                    self.VS1_CP1_Class.main(0)
+                    self.IOVariables['b_P1_DO']['Value'] = self.VS1_CP1_Class.Out
+
                     self.CheckIfNewDay()
 
                     self.choice = not self.choice
@@ -181,6 +195,11 @@ class MainLoop():
                     self.VS1_SV1_Class.control()
                     self.IOVariables['b_SV_CLOSE_DO']['Value'] = self.VS1_SV1_Class.Man_Close_OUT
                     self.IOVariables['b_SV_OPEN_DO']['Value'] = self.VS1_SV1_Class.Man_Open_OUT
+
+                if self.ActTimeLoop5 + 3600 < time.time():
+                    '''Run Loop once a hour
+                    '''
+                    self.SetThreeDayTemp()
 
 
                 time.sleep(1)
@@ -207,6 +226,9 @@ class MainLoop():
             #print('Fran databasen: Open - ' + str(self.IOVariables['b_SV_OPEN_DO']['Value']))
             #print('Fran databasen: Close - ' + str(self.IOVariables['b_SV_CLOSE_DO']['Value']))
             time.sleep(5)
+
+    def SetThreeDayTemp(self):
+        self.ThreeDayTemp = self.ThreeDayTemp + (self.VS1_GT3.value / 72.0)
 
     def ChangeSP(self):
         value1 = input('Enter outside temperature: ')

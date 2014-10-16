@@ -28,11 +28,16 @@ class PumpControl(object):
         except Exception, e:
             print('unpickla went wrong' + str(e))
 
+    def Documentation(self, state):
+        with open('self.Name', 'a+') as f:
+            f.write('{} went {}'.format(self.Name, self.Out))
+
     def main(self, DI):
         if self.Man and not self.Out:
             self.Out = True
             self.S1 += 1
             self.S3 += 1
+            self.Documentation()
 
         elif not self.Man and self.Out:
             self.Out = False
