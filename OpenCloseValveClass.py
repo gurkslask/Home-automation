@@ -65,21 +65,21 @@ class OpenCloseValve(object):
             if self.Man_Close:
                 if self.Control_Time + self.Time_Close < time.time():
                     self.Man_Close_OUT = True
-                    Documentation('Close ' + dt.datetime.now() + ' \n')
+                    Documentation('Close ' + str(dt.datetime.now()) + ' \n')
 
                     #Close variable
             else:
                 self.Man_Close_OUT = False
                 self.Control_Active = False
-                Documentation('Close stopped ' + dt.datetime.now() + ' \n')
+                Documentation('Close stopped ' + str(dt.datetime.now()) + ' \n')
 
             if self.Man_Open:
                 if self.Control_Time + self.Time_Open < time.time():
                     self.Man_Open_OUT = True
                     #Open variable
-                    Documentation('Open ' + dt.datetime.now() + ' \n')
+                    Documentation('Open ' + str(dt.datetime.now()) + ' \n')
             else:
                 self.Man_Open_OUT = False
                 self.Control_Active = False
-                    Documentation('Open stopped ' + dt.datetime.now() + ' \n')
+                Documentation('Open stopped ' + str(dt.datetime.now()) + ' \n')
 

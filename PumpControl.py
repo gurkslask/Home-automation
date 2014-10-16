@@ -28,7 +28,7 @@ class PumpControl(object):
         except Exception, e:
             print('unpickla went wrong' + str(e))
 
-    def Documentation(self, state):
+    def Documentation(self):
         with open('self.Name', 'a+') as f:
             f.write('{} went {} at {}'.format(self.Name, self.Out, time.time()))
 
