@@ -30,7 +30,7 @@ class PumpControl(object):
 
     def Documentation(self, state):
         with open('self.Name', 'a+') as f:
-            f.write('{} went {}'.format(self.Name, self.Out))
+            f.write('{} went {} at {}'.format(self.Name, self.Out, time.time()))
 
     def main(self, DI):
         if self.Man and not self.Out:
