@@ -20,15 +20,16 @@ class OpenCloseValve(object):
 
     def __init__(self):
         self.deadband = 2.0
-        self.Time_Open = 3.0  # Seconds the valve shall open
-        self.OpenTimer = Timer(3.0, self.man(self.Man_Open_OUT, False))
-        self.Time_Close = 2.0  # Seconds the valve shall close
-        self.CloseTimer = Timer(2.0, self.man(self.Man_Close_OUT, False))
         self.Man_Open = False
         self.Man_Close = False
         self.Man_Close_OUT = False
         self.Man_Open_OUT = False
-        self.Name = ''
+        self.Name = 'a'
+        self.Time_Open = 3.0  # Seconds the valve shall open
+        self.OpenTimer = Timer(3.0, self.man(self.Man_Open_OUT, False))
+        self.Time_Close = 2.0  # Seconds the valve shall close
+        self.CloseTimer = Timer(2.0, self.man(self.Man_Close_OUT, False))
+        
         #Declar instances for logging
         #self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
         #self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')

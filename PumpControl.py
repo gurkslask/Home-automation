@@ -29,7 +29,7 @@ class PumpControl(object):
             print('unpickla went wrong' + str(e))
 
     def Documentation(self):
-        with open('self.Name', 'a+') as f:
+        with open('Docs/' + self.Name, 'a+') as f:
             f.write('{} went {} at {}'.format(self.Name, self.Out, time.time()))
 
     def main(self, DI):

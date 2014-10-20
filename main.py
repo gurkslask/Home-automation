@@ -65,6 +65,7 @@ class MainLoop():
 
         #Declare Heating valve
         self.VS1_SV1_Class = OpenCloseValve()
+        self.VS1_SV1_Class.Name = 'VS1_SV1'
         self.VS1_SV1_Open_Trend_Class = Write_temp(self.IOVariables['b_SV_OPEN_DO']['Value'] * 10, 'b_SV_OPEN_DO')
         self.VS1_SV1_Close_Trend_Class = Write_temp(self.IOVariables['b_SV_CLOSE_DO']['Value'] * 10, 'b_SV_CLOSE_DO')
 
