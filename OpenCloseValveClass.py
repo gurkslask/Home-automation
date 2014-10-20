@@ -3,6 +3,7 @@
 from ds1820class import Write_temp
 import time
 import datetime as dt
+from threading import Timer
 
 
 def Documentation(state):
@@ -12,20 +13,33 @@ def Documentation(state):
 
 class OpenCloseValve(object):
     'A class that controls a valve with a close and a open signal'
+    def man(self, tag, value):
+        tag = value
+        self.Documentation(tag, value)
+        return tag
+
     def __init__(self):
         self.deadband = 2.0
         self.Time_Open = 3.0  # Seconds the valve shall open
+        self.OpenTimer = Timer(3.0, self.man(self.Man_Open_OUT, False))
         self.Time_Close = 2.0  # Seconds the valve shall close
+        self.CloseTimer = Timer(2.0, self.man(self.Man_Close_OUT, False))
         self.Man_Open = False
         self.Man_Close = False
         self.Man_Close_OUT = False
         self.Man_Open_OUT = False
+        self.Name = ''
         #Declar instances for logging
-        self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
-        self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')
+        #self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
+        #self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')
 
         self.Control_Time = 0
         self.Control_Active = False
+        self.ControlTimeReset = time.time()
+
+    def Documentation(self, direction, value):
+        with open('Docs/' + self.Name, 'a+') as f:
+            f.write('{} went {} {} at {}'.format(self.Name, direction, value, time.time()))
 
     def main(self, PV, SP):
         '''In this method the temperatures
@@ -59,27 +73,23 @@ class OpenCloseValve(object):
         based on the control variables from
         main method
         '''
-        if self.Control_Active:
-            self.Control_Time = time.time()
+        #Can only run Control method once every 10 seconds
 
-            if self.Man_Close:
-                if self.Control_Time + self.Time_Close < time.time():
-                    self.Man_Close_OUT = True
-                    Documentation('Close ' + str(dt.datetime.now()) + ' \n')
+        if self.Man_Close and self.ControlTimeReset + 10 < time.time() and not self.Man_Open_OUT:
+            #Set the output to true
+            self.man(self.Man_Close_OUT, True)
+            #Set the close timer so the output goes to false after x sec
+            self.CloseTimer.start()
+            #Reset the reset time so it only runs every 10 seconds
+            self.ControlTimeReset = time.time()
 
-                    #Close variable
-            else:
-                self.Man_Close_OUT = False
-                self.Control_Active = False
-                Documentation('Close stopped ' + str(dt.datetime.now()) + ' \n')
+        if self.Man_Open and self.ControlTimeReset + 10 < time.time() and not self.Man_Close_OUT:
+            #Set the output to true
+            self.man(self.Man_Open_OUT, True)
+            #Set the Open timer so the output goes to false after x sec
+            self.OpenTimer.start()
+            #Reset the reset time so it only runs every 10 seconds
+            self.ControlTimeReset = time.time()
 
-            if self.Man_Open:
-                if self.Control_Time + self.Time_Open < time.time():
-                    self.Man_Open_OUT = True
-                    #Open variable
-                    Documentation('Open ' + str(dt.datetime.now()) + ' \n')
-            else:
-                self.Man_Open_OUT = False
-                self.Control_Active = False
-                Documentation('Open stopped ' + str(dt.datetime.now()) + ' \n')
+
 
