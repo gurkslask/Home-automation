@@ -228,7 +228,7 @@ class MainLoop():
             time.sleep(5)
 
     def SetThreeDayTemp(self):
-        self.ThreeDayTemp = self.ThreeDayTemp + (self.VS1_GT3.value / 72.0)
+        self.ThreeDayTemp = self.ThreeDayTemp + (self.VS1_GT3.temp / 72.0)
 
     def ChangeSP(self):
         value1 = input('Enter outside temperature: ')
