@@ -18,6 +18,16 @@ class OpenCloseValve(object):
         self.Documentation(tag, value)
         return tag
 
+    def Close(self):
+        self.Man_Close_OUT = True
+        self.CloseTimer = Timer(self.Time_Close, self.man(self.Man_Close_OUT, False))
+        self.Time_Close.run()
+
+    def Open(self):
+        self.Man_Open_OUT = True
+        self.OpenTimer = Timer(self.Time_Open, self.man(self.Man_Open_OUT, False))
+        self.Time_Open.run()
+
     def __init__(self):
         self.deadband = 2.0
         self.Man_Open = False
@@ -26,7 +36,6 @@ class OpenCloseValve(object):
         self.Man_Open_OUT = False
         self.Name = 'a'
         self.Time_Open = 3.0  # Seconds the valve shall open
-        self.OpenTimer = Timer(3.0, self.man(self.Man_Open_OUT, False))
         self.Time_Close = 2.0  # Seconds the valve shall close
         self.CloseTimer = Timer(2.0, self.man(self.Man_Close_OUT, False))
         
@@ -77,18 +86,14 @@ class OpenCloseValve(object):
         #Can only run Control method once every 10 seconds
 
         if self.Man_Close and self.ControlTimeReset + 10 < time.time() and not self.Man_Open_OUT:
-            #Set the output to true
-            self.man(self.Man_Close_OUT, True)
-            #Set the close timer so the output goes to false after x sec
-            self.CloseTimer.start()
+            #Run the Close method
+            self.Close()
             #Reset the reset time so it only runs every 10 seconds
             self.ControlTimeReset = time.time()
 
         if self.Man_Open and self.ControlTimeReset + 10 < time.time() and not self.Man_Close_OUT:
-            #Set the output to true
-            self.man(self.Man_Open_OUT, True)
-            #Set the Open timer so the output goes to false after x sec
-            self.OpenTimer.start()
+            #Run the Open method
+            self.Open()
             #Reset the reset time so it only runs every 10 seconds
             self.ControlTimeReset = time.time()
 
