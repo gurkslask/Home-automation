@@ -3,6 +3,7 @@
 import datetime
 import time
 import os
+import sqlite3 as lite
 
 
 class DS1820():
@@ -88,6 +89,7 @@ class Write_temp():
         self.path = '/home/pi/Projects/Home-automation/sensors/' + str(name) + '/'
         self.value = value
         self.file_date = int(time.time())
+        self.name = name
 
     def main(self):
         if self.file_date < time.time() - 86400:
@@ -97,6 +99,13 @@ class Write_temp():
             os.makedirs(self.path)
         with open(self.path + str(self.file_date), 'a+') as outfile:
             outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')
+
+    def SQL_main(self):
+        conn = lite.connect('data.db')
+        with conn:
+            cur = conn.cursor()
+            cur.execute("INSERT INTO " + str(self.name) + "VALUES(?,?)",
+                        (str(int(time.time())),  str(self.value)))
 
 
 class DegreeDays(object):

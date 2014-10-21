@@ -21,12 +21,12 @@ class OpenCloseValve(object):
     def Close(self):
         self.Man_Close_OUT = True
         self.CloseTimer = Timer(self.Time_Close, self.man(self.Man_Close_OUT, False))
-        self.Time_Close.run()
+        self.CloseTimer.run()
 
     def Open(self):
         self.Man_Open_OUT = True
         self.OpenTimer = Timer(self.Time_Open, self.man(self.Man_Open_OUT, False))
-        self.Time_Open.run()
+        self.OpenTimer.run()
 
     def __init__(self):
         self.deadband = 2.0
