@@ -18,17 +18,14 @@ class OpenCloseValve(object):
         self.Documentation(tag, value)
         return tag
 
-    def man2(self):
-        print('je')
-
     def Close(self):
         self.Man_Close_OUT = True
-        self.CloseTimer = Timer(3.0, self.man2())
+        self.CloseTimer = Timer(self.Time_Close, self.man, [self.Man_Close_OUT, False])
         self.CloseTimer.run()
 
     def Open(self):
         self.Man_Open_OUT = True
-        self.OpenTimer = Timer(2.0, self.man(self.Man_Open_OUT, False))
+        self.OpenTimer = Timer(self.Time_Open, self.man, [self.Man_Open_OUT, False])
         self.OpenTimer.run()
 
     def __init__(self):
