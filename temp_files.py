@@ -56,7 +56,7 @@ def insert_data(d):
     }
 
     tid = time.time()
-    conn = lite.connect('test.db')
+    conn = lite.connect('data.db')
     with conn:
         cur = conn.cursor()
         for i in d.keys():

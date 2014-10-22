@@ -37,7 +37,6 @@ class OpenCloseValve(object):
         self.Name = 'a'
         self.Time_Open = 3.0  # Seconds the valve shall open
         self.Time_Close = 2.0  # Seconds the valve shall close
-        self.CloseTimer = Timer(2.0, self.man(self.Man_Close_OUT, False))
         
         #Declar instances for logging
         #self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
