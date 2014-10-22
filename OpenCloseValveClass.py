@@ -18,14 +18,17 @@ class OpenCloseValve(object):
         self.Documentation(tag, value)
         return tag
 
+    def man2(self):
+        print('je')
+
     def Close(self):
         self.Man_Close_OUT = True
-        self.CloseTimer = Timer(self.Time_Close, self.man(self.Man_Close_OUT, False))
+        self.CloseTimer = Timer(3.0, self.man2())
         self.CloseTimer.run()
 
     def Open(self):
         self.Man_Open_OUT = True
-        self.OpenTimer = Timer(self.Time_Open, self.man(self.Man_Open_OUT, False))
+        self.OpenTimer = Timer(2.0, self.man(self.Man_Open_OUT, False))
         self.OpenTimer.run()
 
     def __init__(self):
@@ -37,7 +40,6 @@ class OpenCloseValve(object):
         self.Name = 'a'
         self.Time_Open = 3.0  # Seconds the valve shall open
         self.Time_Close = 2.0  # Seconds the valve shall close
-        
         #Declar instances for logging
         #self.Write_Stat_Open = Write_temp(self.Man_Open, 'VS1_SV1_Open')
         #self.Write_Stat_Close = Write_temp(self.Man_Close, 'VS1_SV1_Close')
@@ -48,7 +50,8 @@ class OpenCloseValve(object):
 
     def Documentation(self, direction, value):
         with open('Docs/' + self.Name, 'a+') as f:
-            f.write('{} went {} {} at {}'.format(self.Name, direction, value, time.time()))
+            f.write('{} went {} {} at {}'.format(
+                self.Name, direction, value, time.time()))
 
     def main(self, PV, SP):
         '''In this method the temperatures
