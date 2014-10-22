@@ -28,8 +28,13 @@ def load_data():
                 }
                 '''
                 lines = f.readlines()
-            for line in lines:
-                d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
+            try:
+                for line in lines:
+                    d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
+            except Exception, e:
+                print(e)
+                pass
+                
 
         os.chdir('..')
 
