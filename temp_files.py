@@ -3,12 +3,12 @@ import datetime
 import sqlite3 as lite
 import time
 import pandas as pd
-import bokeh.plotting as pt
+#import bokeh.plotting as pt
 import json
 
 
 def load_data():
-    dir = 'sensors/sensors/'
+    dir = 'sensors/'
     os.chdir(dir)
     tid = time.time()
     d = {}
@@ -29,7 +29,6 @@ def load_data():
                 '''
                 lines = f.readlines()
             for line in lines:
-                ds[folder][str(line.split('|')[0])] = line.split('|')[1].strip()
                 d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
 
         os.chdir('..')
@@ -37,11 +36,6 @@ def load_data():
     os.chdir('..')
     os.chdir('..')
     print('it took {} sec to load data'.format(time.time()-tid))
-    print(d.keys())
-    #for i in d.keys():
-        #Print all the information to text files
-    with open('json', 'w+') as f:
-        json.dump(ds, f, sort_keys = True, indent = 4)
 
     return d
 
@@ -123,4 +117,4 @@ if __name__ == '__main__':
     insert_data(d)
     data = read_data()
     df = load_into_pandas(data)
-    plot(df)
+    #plot(df)
