@@ -102,6 +102,7 @@ class Write_temp():
         conn = lite.connect('data.db')
         with conn:
             cur = conn.cursor()
+            cur.execute('CREATE TABLE str(self.name_dikt[self.name]) IF NOT EXISTS')
             try:
                 cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", ( datetime.now() ,  str(self.value)))
             except KeyError as e:
@@ -116,7 +117,7 @@ class Write_temp():
             os.makedirs(self.path)
         with open(self.path + str(self.file_date), 'a+') as outfile:
             outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')
-        #self.SQL_main()
+        self.SQL_main()
 
 
 

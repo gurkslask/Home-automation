@@ -64,8 +64,11 @@ def insert_data(d):
             else:
                 namn = i
             print(namn)
-            cur.execute('DROP TABLE IF EXISTS ' + str(namn))
-            cur.execute('CREATE TABLE ' + str(namn) + '(Time TEXT, Temp REAL)')
+            #cur.execute('DROP TABLE IF EXISTS ' + str(namn))
+            try:
+                cur.execute('select * from ' + str(namn))
+            except lite.OperationalError:
+                        cur.execute('CREATE TABLE ' + str(namn) + '(Time TEXT, Temp REAL)')
             for i in d:
                 for j in d[i]:
                     cur.execute(
