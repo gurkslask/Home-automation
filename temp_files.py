@@ -31,10 +31,10 @@ def load_data():
             try:
                 for line in lines:
                     d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
-            except Exception, e:
+            except IndexError as e:
                 print(e)
                 pass
-                
+
 
         os.chdir('..')
 
@@ -55,7 +55,7 @@ def insert_data(d):
     }
 
     tid = time.time()
-    conn = lite.connect('data.db')
+    conn = lite.connect('/home/pi/Projects/Home-automation/data.db')
     with conn:
         cur = conn.cursor()
         for i in d.keys():
@@ -116,10 +116,42 @@ def plot(df):
 
     pt.show()
 
+def LoadAndSQL():
+    dir = 'sensors/'
+    os.chdir(dir)
+    tid = time.time()
+    d = {}
+    for folder in os.listdir():
+        os.chdir(folder)
+        for i in os.listdir():
+            d[folder] = {}
+            print(i)
+            with open(i, 'r') as f:
+                lines = f.readlines()
+            try:
+                for line in lines:
+                    d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
+            except IndexError as e:
+                print(e)
+                pass
+            insert_data(d)
+            print('it took {} sec to load {} data'.format(time.time()-tid, folder))
+            d={}
+            time.sleep(1)
+
+
+        os.chdir('..')
+
+    os.chdir('..')
+    os.chdir('..')
+    print('it took {} sec to load data'.format(time.time()-tid))
+
+
 
 if __name__ == '__main__':
-    d = load_data()
-    insert_data(d)
-    data = read_data()
-    df = load_into_pandas(data)
+    #d = load_data()
+    #insert_data(d)
+    #data = read_data()
+    #df = load_into_pandas(data)
     #plot(df)
+    LoadAndSQL()

@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import datetime
+from datetime import datetime
 import time
 import os
 import sqlite3 as lite
@@ -90,6 +90,23 @@ class Write_temp():
         self.value = value
         self.file_date = int(time.time())
         self.name = name
+        self.name_dikt = {
+            '28-00000523a1cb': 'VS1_GT1',
+            '28-00000524056e': 'VS1_GT2',
+            '28-0000052407e0': 'VS1_GT3',
+            '28-00000523ab8e': 'SUN_GT1',
+            '28-0000052361be': 'SUN_GT2'}
+
+
+    def SQL_main(self):
+        conn = lite.connect('data.db')
+        with conn:
+            cur = conn.cursor()
+            try:
+                cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", ( datetime.now() ,  str(self.value)))
+            except KeyError as e:
+                #If the key doesnt exist, create one
+                self.name_dikt[self.name] = [self.name]
 
     def main(self):
         if self.file_date < time.time() - 86400:
@@ -99,13 +116,8 @@ class Write_temp():
             os.makedirs(self.path)
         with open(self.path + str(self.file_date), 'a+') as outfile:
             outfile.write(str(int(time.time())) + '|' + str(self.value) + '\n')
+        #self.SQL_main()
 
-    def SQL_main(self):
-        conn = lite.connect('data.db')
-        with conn:
-            cur = conn.cursor()
-            cur.execute("INSERT INTO " + str(self.name) + "VALUES(?,?)",
-                        (str(int(time.time())),  str(self.value)))
 
 
 class DegreeDays(object):
