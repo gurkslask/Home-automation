@@ -97,17 +97,27 @@ class Write_temp():
             '28-00000523ab8e': 'SUN_GT1',
             '28-0000052361be': 'SUN_GT2'}
 
-
     def SQL_main(self):
         conn = lite.connect('data.db')
         with conn:
             cur = conn.cursor()
-            cur.execute('CREATE TABLE str(self.name_dikt[self.name]) IF NOT EXISTS')
-            try:
-                cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", ( datetime.now() ,  str(self.value)))
-            except KeyError as e:
-                #If the key doesnt exist, create one
+
+            #If the key doesnt exist, create one
+            if self.name in self.name_dikt:
+                pass
+            else:
                 self.name_dikt[self.name] = [self.name]
+
+            #Check if the column exists, if it doesnt create a new one
+            try:
+                cur.execute('select * from {}'.format(
+                    str(self.name_dikt[self.name])))
+            except lite.OperationalError:
+                cur.execute('''
+                    CREATE TABLE {} (Time TEXT, Temp REAL)'''.format(
+                            str(self.name_dikt[self.name])))
+
+            cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", ( datetime.now() ,  str(self.value)))
 
     def main(self):
         if self.file_date < time.time() - 86400:
