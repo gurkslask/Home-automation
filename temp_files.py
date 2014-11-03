@@ -133,7 +133,7 @@ def LoadAndSQL():
                 lines = f.readlines()
             try:
                 for line in lines:
-                    d[folder][datetime.datetime.fromtimestamp(int(line.split('|')[0]))] = line.split('|')[1].strip()
+                    d[folder][int(line.split('|')[0])] = line.split('|')[1].strip()
             except IndexError as e:
                 print(e)
                 pass

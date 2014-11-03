@@ -117,7 +117,7 @@ class Write_temp():
                     CREATE TABLE {} (Time TEXT, Temp REAL)'''.format(
                             str(self.name_dikt[self.name])))
 
-            cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", ( datetime.now() ,  str(self.value)))
+            cur.execute("INSERT INTO " + str(self.name_dikt[self.name]) + " VALUES(?,?)", (int(time.time()), str(self.value)))
 
     def main(self):
         if self.file_date < time.time() - 86400:
