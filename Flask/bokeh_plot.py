@@ -2,15 +2,18 @@
 #import pandas as pd
 import sqlite3 as lite
 import datetime as dt
+import time
 
 
 def LoadFromSQL():
+    cur_time = time.time()
     conn = lite.connect('/home/pi/Projects/Home-automation/data.db')
     cur = conn.cursor()
     with conn:
         print('select * from VS1_GT3 where Time between {} and {}'.format(
-            dt.datetime.now(),
-            (dt.datetime.now() - dt.timedelta(days=3))
+            cur_time,
+            #3 days
+            cur_time - 3 * 3600
             ))
 
         cur.execute("""
@@ -19,8 +22,8 @@ def LoadFromSQL():
             where Time between "{}" and "{}"
             """
                     .format(
-                        dt.datetime.now(),
-                        dt.datetime.now() - dt.timedelta(days=10)
+                        cur_time,
+                        cur_time - 3 * 3600
                         ))
 
         data = cur.fetchall()
