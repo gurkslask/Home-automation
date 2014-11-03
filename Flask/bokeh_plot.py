@@ -10,7 +10,7 @@ def LoadFromSQL():
     conn = lite.connect('/home/pi/Projects/Home-automation/data.db')
     cur = conn.cursor()
     with conn:
-        print('select * from VS1_GT3 where Time between {} and {}'.format(
+        print('select * from VS1_GT3 where Time between {0:.0f} and {0:.0f}'.format(
             cur_time,
             #3 days
             cur_time - 3 * 3600
@@ -19,7 +19,7 @@ def LoadFromSQL():
         cur.execute("""
             select *
             from VS1_GT3
-            where Time between "{}" and "{}"
+            where Time between '{0:.0f}' and '{0:.0f}'
             """
                     .format(
                         cur_time,
